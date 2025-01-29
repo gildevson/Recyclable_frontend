@@ -1,0 +1,150 @@
+/* Estilo geral da página de login */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #e8f5e9; /* Fundo verde claro */
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Define a altura total da viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Alinha o conteúdo verticalmente */
+}
+
+/* Caixa de login */
+.login-container {
+    background-color: #ffffff; /* Fundo branco */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra suave */
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+    transform: translateY(-5px); /* Leve elevação ao passar o mouse */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Título da página de login */
+.login-container h1 {
+    color: #2e7d32; /* Verde escuro */
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Subtítulo */
+.login-container p {
+    color: #4caf50; /* Verde médio */
+    font-size: 16px;
+    margin-bottom: 20px;
+    
+}
+
+/* Estilo dos campos de input */
+.login-container input {
+    width: 100%;
+    padding: 15px 15px;
+    border: 1px solid #c8e6c9; /* Borda verde clara */
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #f9f9f9; /* Fundo claro */
+    color: #333; /* Texto escuro */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    
+}
+
+/* Placeholder */
+.login-container input::placeholder {
+    color: #aaa; /* Placeholder mais claro */
+}
+
+/* Foco no campo de input */
+.login-container input:focus {
+    border-color: #66bb6a; /* Verde brilhante */
+    box-shadow: 0 0 8px rgba(102, 187, 106, 0.5);
+    background-color: #ffffff;
+    
+}
+
+/* Estilo do botão de login */
+.login-container button {
+    padding: 15px;
+    background: #2e7d32; /* Verde escuro */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3); /* Leve brilho */
+    
+}
+
+/* Efeito de hover no botão de login */
+.login-container button:hover {
+    background-color: #388e3c; /* Tom mais claro de verde */
+    transform: translateY(-3px); /* Elevação */
+    box-shadow: 0 8px 15px rgba(56, 142, 60, 0.5);
+}
+
+/* Efeito de clique no botão de login */
+.login-container button:active {
+    transform: translateY(1px); /* Redução leve ao clicar */
+    box-shadow: 0 2px 5px rgba(46, 125, 50, 0.3);
+}
+
+/* Estilo para link "Recuperar senha" */
+.login-container a {
+    font-size: 14px;
+    color: #388e3c; /* Verde médio */
+    text-decoration: none;
+    margin-top: 10px;
+    
+}
+
+/* Hover no link */
+.login-container a:hover {
+    color: #2e7d32; /* Verde escuro */
+    text-decoration: underline;
+    
+}
+
+/* Estilo da mensagem de erro */
+.login-error-message {
+    color: #d32f2f; /* Vermelho vibrante */
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 600px) {
+    .login-container {
+        width: 90%; /* Reduz a largura em dispositivos móveis */
+        padding: 30px;
+    }
+
+    .login-container h1 {
+        font-size: 24px;
+    }
+
+    .login-container input {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .login-container button {
+        font-size: 16px;
+        padding: 12px;
+    }
+}

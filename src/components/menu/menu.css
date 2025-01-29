@@ -1,0 +1,88 @@
+/* Estilo do container principal do menu */
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #141414; /* Fundo escuro */
+    color: #fff; /* Texto branco */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Título do menu */
+  .menu-container h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #00ff85; /* Verde neon */
+    text-transform: uppercase;
+  }
+  
+  /* Estilo da navegação */
+  .menu-navigation {
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .menu-navigation ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu-navigation li {
+    margin: 10px 0;
+  }
+  
+  .menu-navigation button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #141414;
+    background-color: #00ff85; /* Verde neon */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 200px;
+  }
+  
+  /* Efeito ao passar o mouse no botão de navegação */
+  .menu-navigation button:hover {
+    background-color: #32a852; /* Tom mais escuro de verde */
+    transform: translateY(-3px);
+  }
+  
+  /* Botão de logout */
+  .logout-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff4b4b; /* Vermelho */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 200px;
+  }
+  
+  /* Efeito ao passar o mouse no botão de logout */
+  .logout-button:hover {
+    background-color: #d13030; /* Tom mais escuro de vermelho */
+    transform: translateY(-3px);
+  }
+  
+  /* Responsividade para telas menores */
+  @media (max-width: 600px) {
+    .menu-navigation button,
+    .logout-button {
+      width: 90%; /* Ocupa quase toda a largura da tela */
+      font-size: 14px;
+    }
+  
+    h1 {
+      font-size: 24px;
+    }
+  }
+  
