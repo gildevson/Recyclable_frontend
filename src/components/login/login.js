@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../services/api"; // Certifique-se do caminho correto
 import "./login.css";
 
 const Login = () => {
@@ -15,7 +15,6 @@ const Login = () => {
         setLoading(true);
         setError("");
 
-        // Validação de campos no frontend
         if (!email || !password) {
             setError("Por favor, preencha todos os campos.");
             setLoading(false);
@@ -23,16 +22,10 @@ const Login = () => {
         }
 
         try {
-            // Chamada ao backend
-            const response = await axios.post("http://localhost:8080/auth/login", {
-                email,
-                password,
-            });
-
+            const response = await api.post("/auth/login", { email, password });
             if (response.status === 200) {
-                // Login bem-sucedido
-                localStorage.setItem("token", response.data.token);
-                navigate("/menu");
+                localStorage.setItem("token", response.data.token); // Salva o token
+                navigate("/menu"); // Redireciona para o menu
             }
         } catch (error) {
             if (error.response && error.response.status === 401) {

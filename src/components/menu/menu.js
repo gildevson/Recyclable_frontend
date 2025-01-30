@@ -1,19 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./menu.css";
 
 const Menu = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem("token"); // Remove o token
+    navigate("/login"); // Redireciona para a tela de login
   };
 
   return (
-    <div className="menu-container">
-      <h1>Bem-vindo ao Menu</h1>
-      <button onClick={handleLogout}>Sair</button>
+    <div>
+      <h1>Bem-vindo ao Sistema</h1>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };
