@@ -1,88 +1,354 @@
-/* Estilo do container principal do menu */
+/* Reset padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo do body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f3;
+    color: #cecedd;
+    margin: 0;
+    padding: 0;
+}
+
+/* Botão hambúrguer */
+.hamburger {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+    background-color: transparent;
+    border: none;
+    color: #E1E1E6;
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.hamburger:hover,
+.hamburger:focus {
+    color: #8257E6; /* Cor de destaque no hover */
+}
+
+/* Menu lateral */
 .menu-container {
+    width: 250px;
+    height: 100vh;
+    background-color: #202024;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 20px;
+    position: fixed;
+    left: -250px; /* Oculto por padrão */
+    top: 0;
+    z-index: 1000;
+    transition: left 0.3s ease-in-out; /* Transição suave ao abrir/fechar */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra no menu */
+}
+
+/* Quando o menu está aberto */
+.menu-container.open {
+    left: 0; /* Mostra o menu quando aberto */
+}
+
+/* Overlay que cobre a tela quando o menu está aberto */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
     height: 100vh;
-    background-color: #141414; /* Fundo escuro */
-    color: #fff; /* Texto branco */
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Título do menu */
-  .menu-container h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #00ff85; /* Verde neon */
-    text-transform: uppercase;
-  }
-  
-  /* Estilo da navegação */
-  .menu-navigation {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 900; /* Abaixo do menu */
+}
+
+/* Seção de usuário */
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     margin-bottom: 30px;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .menu-navigation ul {
-    list-style: none;
+    margin-top: 80px;
+    padding-left: 20px;
+}
+
+.user-info span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-left: 10px;
+}
+
+/* Estilo para o menu */
+.menu {
+    list-style-type: none;
     padding: 0;
-  }
-  
-  .menu-navigation li {
-    margin: 10px 0;
-  }
-  
-  .menu-navigation button {
-    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+.menu li {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
     font-size: 16px;
-    font-weight: bold;
-    color: #141414;
-    background-color: #00ff85; /* Verde neon */
-    border: none;
-    border-radius: 8px;
+    color: #E1E1E6;
+    transition: background-color 0.3s ease, color 0.3s ease;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    width: 200px;
-  }
-  
-  /* Efeito ao passar o mouse no botão de navegação */
-  .menu-navigation button:hover {
-    background-color: #32a852; /* Tom mais escuro de verde */
-    transform: translateY(-3px);
-  }
-  
-  /* Botão de logout */
-  .logout-button {
-    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.menu li:hover {
+    background-color: #29292E;
+    color: #FFFFFF;
+}
+
+.menu li.active {
+    background-color: #8257E6;
+    color: #FFFFFF;
+}
+
+/* Ícones no menu */
+.menu li svg {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Menu inferior */
+.menu-bottom {
+    list-style-type: none;
+    padding: 0;
+    margin-top: auto;
+}
+
+.menu-bottom li {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
     font-size: 16px;
-    font-weight: bold;
+    color: #E1E1E6;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.menu-bottom li:hover {
+    background-color: #29292E;
+    color: #FFFFFF;
+}
+
+/* Estilo para dispositivos móveis */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block; /* Exibe o botão hambúrguer em telas menores */
+    }
+
+    .menu-container {
+        left: -250px; /* Menu oculto por padrão em telas menores */
+    }
+
+    .menu-container.open {
+        left: 0; /* Mostra o menu ao clicar no botão hambúrguer */
+    }
+}
+
+/* Estilo para telas maiores */
+@media (min-width: 769px) {
+    .hamburger {
+        display: none; /* Oculta o botão hambúrguer em telas maiores */
+    }
+
+    .menu-container {
+        left: 0; /* Menu sempre visível em telas maiores */
+    }
+
+    .overlay {
+        display: none; /* Sem overlay em telas grandes */
+    }
+}
+
+.logout-button {
+    background: none;
+    border: none;
     color: #fff;
-    background-color: #ff4b4b; /* Vermelho */
-    border: none;
-    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    width: 200px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
   
-  /* Efeito ao passar o mouse no botão de logout */
   .logout-button:hover {
-    background-color: #d13030; /* Tom mais escuro de vermelho */
-    transform: translateY(-3px);
+    color: #ff4d4f;  /* Muda a cor ao passar o mouse */
   }
-  
-  /* Responsividade para telas menores */
-  @media (max-width: 600px) {
-    .menu-navigation button,
-    .logout-button {
-      width: 90%; /* Ocupa quase toda a largura da tela */
-      font-size: 14px;
+
+
+  .loading-screen {
+    position: fixed; /* Altera para fixed para garantir que ocupe a tela inteira */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    background-color: rgba(28, 24, 24, 0.8); /* Cor de fundo com opacidade */
+    z-index: 1000; 
+    font-weight: bold;
+    color: #00ff85;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-top: 8px solid #00ff85;
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
     }
-  
-    h1 {
-      font-size: 24px;
+    100% {
+        transform: rotate(360deg);
     }
-  }
-  
+}
+
+
+/* Estilo para o formulário */
+.user-form {
+    background-color: #202024;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    margin: 20px auto;
+    max-width: 400px;
+    transition: all 0.3s ease;
+}
+
+.user-form h2 {
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.inputField {
+    margin-bottom: 15px;
+}
+
+.inputField label {
+    display: block;
+    color: #E1E1E6;
+    margin-bottom: 5px;
+}
+
+.inputField input,
+.inputField select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #29292E;
+    color: #fff;
+    font-size: 16px;
+}
+
+.inputField input:focus,
+.inputField select:focus {
+    outline: none;
+    border: 2px solid #8257E6; /* Destaque no campo ativo */
+}
+
+/* Botão de enviar */
+.submitButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+    background-color: #0056b3; /* Cor ao passar o mouse */
+}
+
+/*FaSignOutAlt
+
+*/
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+/* Cabeçalho da tabela */
+.user-table thead th {
+    background-color: #202024;
+    color: #E1E1E6;
+    padding: 12px;
+    text-align: left; /* Alinha o cabeçalho à esquerda */
+}
+
+/* Linhas da tabela */
+.user-table tbody tr {
+    background-color: #29292E;
+    color: #E1E1E6;
+}
+
+/* Células da tabela */
+.user-table tbody td {
+    padding: 12px;
+    text-align: left; /* Alinha o conteúdo à esquerda */
+    border-bottom: 1px solid #383838; /* Linha de separação */
+}
+
+/* Células da tabela no hover */
+.user-table tbody tr:hover {
+    background-color: #32323A;
+}
+
+/* Estilo do botão de excluir */
+.deleteButton {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+    background-color: #d63638;
+}
+
+.menu-link {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    text-align: left;
+    padding: 0.2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+
+
+.menu-link svg {
+    margin-right: 10px;
+}
