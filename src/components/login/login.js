@@ -1,69 +1,82 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api"; // Certifique-se do caminho correto
+import api from "../services/api";
+import logo from "../img/logo.png"; // Import da imagem
 import "./login.css";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-        if (!email || !password) {
-            setError("Por favor, preencha todos os campos.");
-            setLoading(false);
-            return;
-        }
+    if (!email || !password) {
+      setError("Por favor, preencha todos os campos.");
+      setLoading(false);
+      return;
+    }
 
-        try {
-            const response = await api.post("/auth/login", { email, password });
-            if (response.status === 200) {
-                localStorage.setItem("token", response.data.token); // Salva o token
-                navigate("/menu"); // Redireciona para o menu
-            }
-        } catch (error) {
-            if (error.response && error.response.status === 401) {
-                setError("Credenciais inválidas.");
-            } else {
-                setError("Erro na conexão com o servidor.");
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
+    try {
+      const response = await api.post("/auth/login", { email, password });
+      if (response.status === 200) {
+        localStorage.setItem("token", response.data.token);
+        navigate("/menu");
+      } else {
+        setError("Erro desconhecido. Tente novamente.");
+      }
+    } catch (error) {
+      const status = error.response?.status;
+      if (status === 401) {
+        setError("Credenciais inválidas.");
+      } else if (status >= 500) {
+        setError("Erro no servidor. Tente novamente mais tarde.");
+      } else {
+        setError("Erro na conexão com o servidor.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <div className="login-container">
-            <h1>Login</h1>
-            <p>Sistema de Gestão de Recicláveis</p>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    placeholder="Digite seu email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Digite sua senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                {error && <p className="login-error-message">{error}</p>}
-                <button type="submit" disabled={loading}>
-                    {loading ? "Carregando..." : "Entrar no Sistema"}
-                </button>
-            </form>
-        </div>
-    );
+  return (
+    <div className="login-container">
+  <div className="login-left">
+    <img src={logo} alt="Logo" className="login-logo" />
+    <h1>Login</h1>
+    <p>Bem-vindo ao Sistema de Gestão de Recicláveis</p>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        placeholder="Digite seu email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Digite sua senha"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      {error && <p className="error-message">{error}</p>}
+      <button type="submit" disabled={loading}>
+        {loading ? "Carregando..." : "Entrar no Sistema"}
+      </button>
+    </form>
+    <a href="/forgot-password" className="forgot-password-link">
+      Esqueceu sua senha?
+    </a>
+    
+  </div>
+</div>
+  );
 };
 
 export default Login;

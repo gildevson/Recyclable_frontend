@@ -1,171 +1,160 @@
-/* Estilo geral da página de login */
+/* Estilo geral */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #141414; /* Fundo ainda mais escuro */
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    height: 100vh; /* Define a altura total da viewport */
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Alinha o conteúdo verticalmente */
-}
-
-/* Caixa de login */
-.login-container {
-    background-color: #1b1b1b; /* Fundo escuro da caixa de login */
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Sombra escura para dar profundidade */
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 30%;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-/* Título da página de login */
-.login-container h1 {
-    color: #00ff85; /* Verde neon para o título */
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-/* Estilo dos campos de input */
-.login-container input {
-    width: 100%;
-    padding: 15px;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: rgba(53, 52, 52, 0.8); /* Fundo do input mais escuro */
-    color: #d1d1d1; /* Texto mais claro */
-    outline: none;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-/* Placeholder */
-.login-container input::placeholder {
-    color: #757575; /* Placeholder mais escuro */
-}
-
-/* Foco no campo de input */
-.login-container input:focus {
-    border-color: #00ff85; /* Cor do foco em verde neon */
-    background-color: rgba(28, 28, 28, 1);
-}
-
-/* Estilo do botão de login */
-.login-container button {
-    padding: 15px;
-    background: #00ff85; /* Cor base do botão */
-    color: black; /* Cor do texto */
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    margin-top: 8%;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    width: 100%; /* Faz o botão ocupar toda a largura */
-    box-shadow: 0px 0px 15px rgba(0, 255, 133, 0.7), 0 0 40px rgba(0, 255, 133, 0.4), 0 0 60px rgba(0, 255, 133, 0.1); /* Efeito de brilho neon */
-}
-
-
-/* Efeito de hover no botão de login */
-.login-container button:hover {
-    background-color: #32a852; /* Altera a cor de fundo no hover */
-    transform: translateY(-3px); /* Eleva o botão no hover */
-    box-shadow: 0px 0px 20px rgba(50, 168, 82, 0.9), 0 0 50px rgba(50, 168, 82, 0.6), 0 0 80px rgba(50, 168, 82, 0.3); /* Sombra mais intensa no hover */
-}
-
-
-/* Efeito de clique no botão de login */
-.login-container button:active {
-    transform: translateY(1px); /* Move o botão levemente para baixo */
-    box-shadow: 0px 0px 10px rgba(50, 168, 82, 0.7), 0 0 20px rgba(50, 168, 82, 0.5), 0 0 30px rgba(50, 168, 82, 0.2); /* Sombra mais suave ao clicar */
-}
-/* Estilo para link "Recuperar senha" */
-.login-container a {
-    font-size: 14px;
-    color: #00ff85; /* Link em verde neon */
-    text-decoration: none;
-    margin-top: 10px;
-}
-
-/* Hover no link */
-.login-container a:hover {
-    color: #32a852;
-    text-decoration: underline;
-}
-
-/* Estilo da mensagem de erro */
-.login-error-message {
-    color: #ff4b4b; /* Vermelho para erros */
-    font-size: 14px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-}
-
-/* Tela de carregamento */
-.login-loading-screen {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    font-size: 24px;
+  }
+  
+  /* Container principal */
+  .login-container {
+    display: flex;
+    width: 90%;
+    max-width: 400px; /* Tamanho ideal para dispositivos móveis */
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Adiciona espaçamento interno */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    animation: fadeIn 0.8s ease;
+  }
+  
+  /* Coluna esquerda */
+  .login-left {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .login-logo {
+    max-width: 180px;
+    margin-bottom: 20px;
+  }
+  
+  /* Títulos e descrição */
+  .login-left h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .login-left p {
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  /* Inputs */
+  .login-left input {
+    width: 100%;
+    max-width: 320px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fdfdfd;
+    transition: border-color 0.3s ease;
+  }
+  
+  .login-left input:focus {
+    border-color: #4caf50;
+    outline: none;
+  }
+  
+  /* Botão */
+  .login-left button {
+    width: 100%;
+    max-width: 320px;
+    padding: 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
     font-weight: bold;
-    color: #00ff85;
-}
-
-/* Estilo do spinner de carregamento */
-.login-spinner {
-    width: 50px;
-    height: 50px;
-    border: 8px solid rgba(155, 127, 127, 0.1);
-    border-top: 8px solid #00ff85;
-    border-radius: 50%;
-    animation: spin 1.5s linear infinite;
-}
-
-/* Animação do spinner */
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* Responsividade para telas menores */
-@media (max-width: 600px) {
-    .login-container {
-        width: 90%; /* Reduz a largura da caixa de login em dispositivos móveis */
-        padding: 20px; /* Diminui o padding para telas menores */
-    }
-
-    .login-container h1 {
-        font-size: 20px;
-    }
-
-    .login-container input {
-        font-size: 14px;
-        padding: 10px; /* Diminui o padding dos inputs */
-    }
-
-    .login-container button {
-        font-size: 14px;
-        padding: 10px; /* Diminui o tamanho do botão */
-    }
-}
-
-
-.login-container button:disabled {
-    background: #757575; /* Cor cinza quando desabilitado */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .login-left button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+  }
+  
+  .login-left button:disabled {
+    background-color: #bbb;
     cursor: not-allowed;
-    box-shadow: none; /* Remove o efeito de brilho ao estar desabilitado */
-}
+  }
+  
+  /* Link de senha */
+  .forgot-password-link {
+    color: #4caf50;
+    text-decoration: none;
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  
+  .forgot-password-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Rocket Launch */
+  .rocket-launch-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .rocket-launch {
+    max-width: 120px;
+    height: auto;
+    animation: bounce 2s infinite;
+  }
+  
+  /* Animações */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .login-container {
+      height: auto;
+      padding: 20px;
+    }
+  
+    .rocket-launch {
+      max-width: 100px;
+    }
+  }
+  
