@@ -1,0 +1,198 @@
+/* Container principal do Dashboard */
+.dashboard-container {
+    padding: 40px;
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #64b5f6 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Título do Dashboard */
+.dashboard-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Grid de Cards */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    width: 100%;
+    max-width: 1300px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilização dos Cards */
+.dashboard-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Texto dentro dos cards */
+.dashboard-card h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.dashboard-card p {
+    font-size: 26px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Container de Gráficos */
+.dashboard-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1300px;
+    margin-top: 50px;
+}
+
+/* Estilização dos gráficos */
+.chart-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Título dos gráficos */
+.chart-container h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Atividades Recentes */
+.recent-activities {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: left;
+}
+
+.recent-activities h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.recent-activities ul {
+    list-style: none;
+    padding: 0;
+}
+
+.recent-activities li {
+    padding: 8px 0;
+    font-size: 16px;
+    color: #555;
+    border-bottom: 1px solid #eee;
+}
+
+/* Avisos do Sistema */
+.alert-box {
+    background-color: #fff3cd;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 5px solid #ff9800;
+    width: 100%;
+    text-align: center;
+}
+
+.alert-box h3 {
+    font-size: 18px;
+    color: #856404;
+    margin-bottom: 10px;
+}
+
+.alert-box p {
+    font-size: 16px;
+    color: #856404;
+    font-weight: bold;
+}
+
+/* Nova Tabela: Últimos Usuários Cadastrados */
+.table-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+    background-color: #007bff;
+    color: white;
+}
+
+.table-container tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .dashboard-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .dashboard-charts {
+        grid-template-columns: 1fr;
+    }
+}

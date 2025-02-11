@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import logo from "../img/logo.png";
@@ -11,18 +11,26 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    // Callback para verificar se o usuário está autenticado
+    const checkAuth = useCallback(() => {
         const token = localStorage.getItem("token");
         if (token) {
-            navigate("/menu"); // Redireciona para o menu se o token existir
+            navigate("/dashboard"); // Redireciona para o dashboard se já estiver autenticado
         }
     }, [navigate]);
 
+    // Verifica se o usuário já está logado ao montar o componente
+    useEffect(() => {
+        checkAuth();
+    }, [checkAuth]);
+
+    // Função para validar email
     const validateEmail = (email) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     };
 
+    // Lida com a submissão do formulário de login
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -43,21 +51,19 @@ const Login = () => {
         try {
             const response = await api.post("/auth/login", { email, password });
             if (response.status === 200) {
-                // Salva o token no localStorage
+                // Salva o token e o nome do usuário no localStorage
                 localStorage.setItem("token", response.data.token);
+                localStorage.setItem("username", response.data.name);
 
-                // Salva o nome do usuário no localStorage
-                localStorage.setItem("username", response.data.name); 
-
-                // Redireciona para o menu
-                navigate("/menu");
+                // Redireciona para o dashboard
+                navigate("/dashboard");
             } else {
                 setError(response.data.message || "Erro desconhecido. Tente novamente.");
             }
         } catch (error) {
             const status = error.response?.status;
             if (status === 401) {
-                setError("Credenciais inválidas.");
+                setError("Credenciais inválidas. Verifique seu email e senha.");
             } else if (status >= 500) {
                 setError("Erro no servidor. Tente novamente mais tarde.");
             } else {
@@ -70,7 +76,7 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <div className="login-left">
+            <div className="login-box">
                 <img src={logo} alt="Logo" className="login-logo" />
                 <h1>Login</h1>
                 <p>Bem-vindo ao Sistema de Gestão de Recicláveis</p>

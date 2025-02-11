@@ -8,6 +8,7 @@ import {
   FaChartBar,
   FaQuestionCircle,
   FaSignOutAlt,
+  FaTachometerAlt,
 } from "react-icons/fa";
 
 const Menu = () => {
@@ -61,7 +62,7 @@ const Menu = () => {
 
   // Itens do menu com ícones e rotas
   const menuItems = [
-    { label: "Home", icon: <FaHome />, path: "/home" },
+    { label: "Dashboard", icon: <FaTachometerAlt />, path: "/dashboard" }, 
     { label: "Listar Usuários", icon: <FaUser />, path: "/users" },
     { label: "Adicionar Usuário", icon: <FaUserPlus />, path: "/add-user" },
     { label: "Relatório Mensal", icon: <FaChartBar />, path: "/monthly-report" },
