@@ -3,7 +3,7 @@
     padding: 40px;
     margin-left: 250px;
     width: calc(100% - 250px);
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #64b5f6 100%);
+    background: linear-gradient(150deg, #21425e 0%, #0d2335 50%, #21425e 100%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
