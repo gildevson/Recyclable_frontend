@@ -5,6 +5,7 @@ import Menu from "./components/menu/menu";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoutes from "./components/routes/PrivateRoute";
 import "./App.css"; // Estilos globais
+import UserList from "./components/users/UserList";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -26,6 +27,10 @@ const AppLayout = () => {
 
           {/* Redirecionamento padrão */}
           <Route path="*" element={<Navigate to="/login" />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/users" element={<UserList />} /> {/* ✅ Nova rota */}
+          </Route>
         </Routes>
       </div>
     </div>
