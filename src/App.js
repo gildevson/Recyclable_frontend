@@ -5,7 +5,7 @@ import Menu from "./components/menu/menu";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoutes from "./components/routes/PrivateRoute";
 import "./App.css"; // Estilos globais
-import UserList from "./components/users/UserList";
+import UserList from "./components/pages/users/UserList";
 
 const AppLayout = () => {
   const location = useLocation();
