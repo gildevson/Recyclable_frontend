@@ -1,22 +1,19 @@
-// src/pages/users/UserList.js
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // ou use seu `api.js` se já tiver configurado
+//import axios from "axios";
 import "./UserList.css";
+import api from "../../services/api";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
-
-  // Buscar os dados dos usuários
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/users"); // Altere a URL se necessário
+        const response = await api.get("/users");
         setUsers(response.data);
       } catch (error) {
         console.error("Erro ao buscar usuários:", error);
       }
     };
-
     fetchUsers();
   }, []);
 
@@ -28,15 +25,18 @@ const UserList = () => {
           <tr>
             <th>Nome</th>
             <th>Email</th>
-            <th>Permissão</th>
+            <th>Permissões</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>{user.nome}</td>
+              <td>{user.name}</td>
               <td>{user.email}</td>
-              <td>{user.permissao}</td>
+              <td>
+                {user.permissions && user.permissions.length > 0
+                  ? user.permissions.join(", "): "Sem permissões"}
+              </td>
             </tr>
           ))}
         </tbody>
