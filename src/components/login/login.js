@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
-import logo from "../img/logo.png";
-import "./login.css";
+import api from "../services/api"; // Certifique-se que o caminho para sua API está correto
+import logo from "../img/logo.png"; // Verifique se o caminho do seu logo está correto
+import "./login.css"; // Importa os estilos para esta página
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setError("");
+        setError(""); // Limpa erros anteriores
 
         if (!email || !password) {
             setError("Por favor, preencha todos os campos.");
@@ -58,28 +58,33 @@ const Login = () => {
                 // Redireciona para o dashboard
                 navigate("/dashboard");
             } else {
+                // Caso a API retorne um status de erro não HTTP (ex: 200 com mensagem de erro no corpo)
                 setError(response.data.message || "Erro desconhecido. Tente novamente.");
             }
         } catch (error) {
+            // Trata erros de requisição (HTTP status codes)
             const status = error.response?.status;
             if (status === 401) {
                 setError("Credenciais inválidas. Verifique seu email e senha.");
             } else if (status >= 500) {
                 setError("Erro no servidor. Tente novamente mais tarde.");
             } else {
-                setError("Erro na conexão com o servidor.");
+                setError("Erro na conexão com o servidor. Verifique sua internet.");
             }
         } finally {
-            setLoading(false);
+            setLoading(false); // Sempre desabilita o carregamento no final
         }
     };
 
     return (
         <div className="login-container">
             <div className="login-box">
-                <img src={logo} alt="Logo" className="login-logo" />
+                {/* Certifique-se que 'logo' está importado corretamente e o caminho para 'logo.png' está certo */}
+                <img src={logo} alt="Logo Remessa Segura" className="login-logo" /> 
                 <h1>Login</h1>
-                <p>Bem-vindo ao Sistema de Gestão de Recicláveis</p>
+                {/* Adicionada a classe 'welcome-text' para melhor estilização */}
+                <p className="welcome-text">Bem-vindo ao Sistema de Gestão de Recicláveis</p> 
+                
                 <form onSubmit={handleSubmit}>
                     <input
                         type="email"

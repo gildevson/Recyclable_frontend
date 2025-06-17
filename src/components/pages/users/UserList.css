@@ -4,6 +4,7 @@
   border-radius: 8px;
   margin-left: 250px; /* espaço para o menu recolhido */
   transition: margin 0.3s ease;
+  color: black;
 }
 
 .user-list-container ul {
