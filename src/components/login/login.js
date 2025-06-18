@@ -54,8 +54,8 @@ const Login = () => {
                 // Salva o token e o nome do usuário no localStorage
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("username", response.data.name);
+                localStorage.setItem("user", JSON.stringify(response.data.user)); // 🔧 ESSENCIAL
 
-                // Redireciona para o dashboard
                 navigate("/dashboard");
             } else {
                 // Caso a API retorne um status de erro não HTTP (ex: 200 com mensagem de erro no corpo)
@@ -80,11 +80,11 @@ const Login = () => {
         <div className="login-container">
             <div className="login-box">
                 {/* Certifique-se que 'logo' está importado corretamente e o caminho para 'logo.png' está certo */}
-                <img src={logo} alt="Logo Remessa Segura" className="login-logo" /> 
+                <img src={logo} alt="Logo Remessa Segura" className="login-logo" />
                 <h1>Login</h1>
                 {/* Adicionada a classe 'welcome-text' para melhor estilização */}
-                <p className="welcome-text">Bem-vindo ao Sistema de Gestão de Recicláveis</p> 
-                
+                <p className="welcome-text">Bem-vindo ao Sistema de Gestão de Recicláveis</p>
+
                 <form onSubmit={handleSubmit}>
                     <input
                         type="email"

@@ -6,6 +6,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoutes from "./components/routes/PrivateRoute";
 import "./App.css"; // Estilos globais
 import UserList from "./components/pages/users/UserList";
+import UserCreate from "./components/pages/users/UserCreate";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const AppLayout = () => {
         <Routes>
           {/* Rota pública */}
           <Route path="/login" element={<Login />} />
-
+          
           {/* Rotas protegidas */}
           <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
@@ -30,6 +31,7 @@ const AppLayout = () => {
           <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/users" element={<UserList />} /> {/* ✅ Nova rota */}
+            <Route path="/users/new" element={<UserCreate />} />
           </Route>
         </Routes>
       </div>

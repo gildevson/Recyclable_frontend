@@ -1,0 +1,245 @@
+/* Importar variáveis CSS globais se você as tiver em 'src/styles/variables.css' */
+/* Caso contrário, copie o bloco :root do seu 'variables.css' ou 'login.css' para o topo deste arquivo. */
+/* Exemplo de :root com suas variáveis: */
+:root {
+  --primary-color: #1A73E8;
+  --primary-dark: #0F4C81;
+  --secondary-color: #00BBDC;
+  --accent-color: #FF5722;
+  --text-color-dark: #212529;
+  --text-color-light: #6C757D;
+  --white: #FFFFFF;
+  --off-white: #F8F9FA;
+  --gray-light: #E9ECEF;
+  --gray-medium: #DDE2E7;
+  --border-color: #DEE2E6;
+  --error-color: #dc3545;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --border-radius-xs: 2px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --transition-short: 0.15s ease-out;
+  --transition-medium: 0.3s ease-in-out;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7); /* Fundo mais escuro para maior destaque do modal */
+  backdrop-filter: blur(8px); /* Efeito blur mais pronunciado e suave */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease-out forwards; /* Animação mais suave e lenta */
+}
+
+.modal-body {
+  background: var(--white);
+  padding: var(--spacing-lg); /* Padding generoso */
+  border-radius: var(--border-radius-lg); /* Bordas mais arredondadas */
+  position: relative;
+  width: 100%;
+  max-width: 550px; /* Largura máxima ligeiramente maior para conteúdo */
+  box-shadow: var(--shadow-lg); /* Sombra mais forte e elegante */
+  animation: slideUp 0.4s ease-out forwards; /* Animação mais suave e lenta */
+  transition: all var(--transition-medium) ease-in-out; /* Transição suave para quaisquer mudanças */
+  border: 1px solid var(--border-color); /* Borda suave para definição */
+  color: var(--text-color-dark); /* Cor de texto padrão dentro do modal */
+  overflow: hidden; /* Garante que nada saia das bordas arredondadas */
+}
+
+/* Estilo para títulos dentro do modal */
+.modal-body h2 {
+  font-size: 2rem; /* Título um pouco maior */
+  color: var(--primary-dark);
+  margin-bottom: var(--spacing-md);
+  font-weight: 700;
+  border-bottom: 2px solid var(--gray-light); /* Separador visual */
+  padding-bottom: var(--spacing-xs);
+  text-align: center; /* Centraliza o título do modal */
+}
+
+/* Estilo para parágrafos dentro do modal */
+.modal-body p {
+  font-size: 1rem;
+  color: var(--text-color-light);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Estilo para formulários dentro do modal (se houver) */
+.modal-body form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm); /* Espaçamento entre os campos */
+}
+
+/* Estilo para labels de formulário (se houver) */
+.modal-body label {
+  font-weight: 600;
+  color: var(--text-color-dark);
+  margin-bottom: var(--spacing-xs); /* Espaço entre label e input */
+  display: block; /* Garante que a label ocupe sua própria linha */
+  text-align: left; /* Alinha labels à esquerda */
+}
+
+.modal-body input[type="text"],
+.modal-body input[type="email"],
+.modal-body input[type="password"],
+.modal-body select,
+.modal-body textarea {
+  width: 100%; /* Ocupa a largura total */
+  padding: var(--spacing-xs);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+  color: var(--text-color-dark);
+  transition: border-color var(--transition-short), box-shadow var(--transition-short);
+  box-sizing: border-box; /* Inclui padding e borda na largura total */
+}
+
+.modal-body input:focus,
+.modal-body select:focus,
+.modal-body textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--primary-color), 0.25); /* Sombra mais vibrante no foco */
+  outline: none;
+}
+
+/* Botões de ação dentro do modal (salvar, cancelar, etc.) */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end; /* Alinha botões à direita */
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--gray-light); /* Separador para ações */
+}
+
+.modal-button {
+  padding: var(--spacing-xs) var(--spacing-md); /* Padding um pouco mais generoso */
+  border-radius: var(--border-radius-md); /* Bordas mais arredondadas */
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-short), transform var(--transition-short), box-shadow var(--transition-short);
+  min-width: 100px; /* Largura mínima para botões */
+  box-shadow: var(--shadow-sm); /* Sombra inicial sutil */
+}
+
+.modal-button.primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+}
+
+.modal-button.primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.modal-button.secondary {
+  background-color: var(--gray-light);
+  color: var(--text-color-dark);
+  border: 1px solid var(--border-color);
+}
+
+.modal-button.secondary:hover {
+  background-color: var(--gray-medium);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* Botão de fechar */
+.modal-close {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-md);
+  border: none;
+  background: transparent;
+  font-size: 2.2rem; /* Ícone um pouco maior e mais visível */
+  color: var(--text-color-light); /* Cor mais suave */
+  cursor: pointer;
+  transition: color var(--transition-short), transform var(--transition-short);
+  z-index: 10;
+}
+
+.modal-close:hover {
+  color: var(--error-color);
+  transform: rotate(180deg); /* Rotação completa para um efeito mais dramático */
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(80px); opacity: 0; } /* Começa mais abaixo para efeito de slide */
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ------------------------------------------------------------------------- */
+/* Responsividade do Modal */
+/* ------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .modal-body {
+    max-width: 90%;
+    margin: var(--spacing-md);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+  }
+
+  .modal-body h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .modal-body p {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-md);
+  }
+
+  .modal-button {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .modal-close {
+    font-size: 1.8rem; /* Ícone de fechar menor */
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-body {
+    padding: var(--spacing-sm);
+  }
+
+  .modal-body h2 {
+    font-size: 1.3rem;
+  }
+}
