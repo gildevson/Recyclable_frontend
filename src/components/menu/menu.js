@@ -14,13 +14,10 @@ import {
 const Menu = () => {
   // Estado para controlar se o menu está aberto ou fechado
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   // Estado para armazenar o nome do usuário
   const [username, setUsername] = useState("Guest");
-
   // Estado para exibir a tela de carregamento
   const [isLoading, setIsLoading] = useState(false); // ADICIONADO para controle do spinner
-
   const navigate = useNavigate();
 
   // useEffect para verificar o token e redirecionar para o login caso não exista
