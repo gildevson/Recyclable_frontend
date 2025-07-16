@@ -51,11 +51,14 @@ const Login = () => {
         try {
             const response = await api.post("/auth/login", { email, password });
             if (response.status === 200) {
-                // Salva o token e o nome do usuário no localStorage
-                localStorage.setItem("token", response.data.token);
-                localStorage.setItem("username", response.data.name);
-                localStorage.setItem("user", JSON.stringify(response.data.user)); // 🔧 ESSENCIAL
+                const userData = {
+                    ...response.data.user,
+                };
 
+                localStorage.setItem("user", JSON.stringify(userData));
+                localStorage.setItem("token", response.data.token); // ✅ ESSENCIAL
+                localStorage.setItem("username", response.data.user.name);
+                
                 navigate("/dashboard");
             } else {
                 // Caso a API retorne um status de erro não HTTP (ex: 200 com mensagem de erro no corpo)
