@@ -4,35 +4,31 @@ import Login from "./components/login/login";
 import Menu from "./components/menu/menu";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoutes from "./components/routes/PrivateRoute";
-import "./App.css"; // Estilos globais
+import "./App.css";
 import UserList from "./components/pages/users/UserList";
 import UserCreate from "./components/pages/users/UserCreate";
 
 const AppLayout = () => {
   const location = useLocation();
-  const hideMenu = location.pathname === "/login"; // Esconde o menu apenas na tela de login
+  const hideMenu = location.pathname === "/login";
 
   return (
     <div className="app-container">
-      {!hideMenu && <Menu />} {/* Renderiza o menu apenas se não estiver na tela de login */}
-
+      {!hideMenu && <Menu />}
       <div className="content">
         <Routes>
           {/* Rota pública */}
           <Route path="/login" element={<Login />} />
-          
+
           {/* Rotas protegidas */}
           <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-
-          {/* Redirecionamento padrão */}
-          <Route path="*" element={<Navigate to="/login" />} />
-          <Route element={<PrivateRoutes />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/users" element={<UserList />} /> {/* ✅ Nova rota */}
+            <Route path="/users" element={<UserList />} />
             <Route path="/users/new" element={<UserCreate />} />
           </Route>
+
+          {/* Rota padrão para redirecionar para login */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </div>
     </div>

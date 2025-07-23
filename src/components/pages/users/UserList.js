@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
-import "./UserList.css";
-import api from "../../services/api";
+import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; // Importante!
+import api from "../../services/api";
 import Modal from "../../ui/modal/Modal";
 import UserCreate from "./UserCreate";
+import "./UserList.css";
 
 const UserList = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [deletingUserId, setDeletingUserId] = useState(null);
 
-  // Recupera o usuário logado
-  const user = JSON.parse(localStorage.getItem("user"));
+  const loggedInUser = JSON.parse(localStorage.getItem("user"));
+  const isAdmin = loggedInUser?.permissions?.some(
+    (p) => typeof p === "object" && p.id === 1
+  );
 
-  // Verifica se o usuário tem permissão para criar usuários
-  const canCreateUser = user?.permissions?.some(p => typeof p === "object" && p.id === 1);
-
-  // Carrega a lista de usuários ao montar o componente
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -25,38 +25,61 @@ const UserList = () => {
   const fetchUsers = async () => {
     try {
       const response = await api.get("/users");
-      console.log("Usuários recebidos:", response.data);
       setUsers(response.data);
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
+      toast.error("Erro ao carregar lista de usuários.");
     }
   };
 
-  const handleCreate = () => {
-    setShowModal(true);
-  };
+  const handleCreate = () => setShowModal(true);
 
-  const handleEdit = (userId) => {
-    navigate(`/users/edit/${userId}`);
-  };
+  const handleEdit = (userId) => navigate(`/users/edit/${userId}`);
 
-  const handleDelete = async (userId) => {
-    if (window.confirm(`Tem certeza que deseja excluir o usuário com ID: ${userId}?`)) {
-      try {
-        await api.delete(`/users/${userId}`);
-        fetchUsers(); // Atualiza a lista após deletar
-      } catch (error) {
-        console.error("Erro ao excluir usuário:", error);
-        alert("Erro ao excluir usuário.");
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Tem certeza que deseja excluir este usuário?");
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem("token");
+    setDeletingUserId(id);
+
+    try {
+      await api.delete(`/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toast.success("Usuário excluído com sucesso!");
+      setUsers((prev) => prev.filter((user) => user.id !== id));
+    } catch (error) {
+      console.error(error);
+
+      if (error.response?.status === 403) {
+        toast.error("Você não tem permissão para excluir este usuário.");
+        // Não redireciona, apenas avisa
+      } else {
+        toast.error("Erro ao excluir usuário.");
       }
+    } finally {
+      setDeletingUserId(null);
     }
+  };
+
+  const getPermissionLabel = (user) => {
+    if (!user.permissions || user.permissions.length === 0) {
+      return "Sem permissões";
+    }
+    return user.permissions
+      .map((p) => (typeof p === "object" ? p.description : p))
+      .join(", ");
   };
 
   return (
     <div className="user-list-container">
       <div className="user-list-header">
         <h2>Lista de Usuários</h2>
-        {canCreateUser && (
+        {isAdmin && (
           <button className="create-button" onClick={handleCreate}>
             <FaPlus /> Novo Usuário
           </button>
@@ -78,11 +101,7 @@ const UserList = () => {
               <tr key={user.id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>
-                  {user.permissions && user.permissions.length > 0
-                    ? user.permissions.map(p => p.description || p).join(", ")
-                    : "Sem permissões"}
-                </td>
+                <td>{getPermissionLabel(user)}</td>
                 <td className="action-buttons">
                   <button
                     className="action-button edit"
@@ -91,13 +110,16 @@ const UserList = () => {
                   >
                     <FaEdit />
                   </button>
-                  <button
-                    className="action-button delete"
-                    onClick={() => handleDelete(user.id)}
-                    title="Excluir Usuário"
-                  >
-                    <FaTrash />
-                  </button>
+                  {isAdmin && loggedInUser?.id !== user.id && (
+                    <button
+                      className="action-button delete"
+                      onClick={() => handleDelete(user.id)}
+                      title="Excluir Usuário"
+                      disabled={deletingUserId === user.id}
+                    >
+                      {deletingUserId === user.id ? "Excluindo..." : <FaTrash />}
+                    </button>
+                  )}
                 </td>
               </tr>
             ))
@@ -109,7 +131,6 @@ const UserList = () => {
         </tbody>
       </table>
 
-      {/* Modal para criação de usuário */}
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <UserCreate
           onUserCreated={() => {
