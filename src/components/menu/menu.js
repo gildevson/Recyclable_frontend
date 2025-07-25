@@ -15,22 +15,22 @@ const Menu = () => {
   // Estado para controlar se o menu está aberto ou fechado
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // Estado para armazenar o nome do usuário
-  const [username, setUsername] = useState("Guest");
+  const username = localStorage.getItem("username") || "Guest";
   // Estado para exibir a tela de carregamento
+  
   const [isLoading, setIsLoading] = useState(false); // ADICIONADO para controle do spinner
   const navigate = useNavigate();
 
   // useEffect para verificar o token e redirecionar para o login caso não exista
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
+  const publicPaths = ["/login", "/forgot-password"];
+  const token = localStorage.getItem("token");
+  const currentPath = window.location.pathname;
 
-    // Recupera o nome do usuário do localStorage
-    const storedUsername = localStorage.getItem("username");
-    if (storedUsername) setUsername(storedUsername);
-  }, [navigate]);
+  if (!token && !publicPaths.includes(currentPath)) {
+    navigate("/login");
+  }
+}, [navigate]);
 
   // Função para alternar o estado do menu (abrir/fechar)
   const toggleMenu = () => {

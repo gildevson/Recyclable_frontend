@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api";
 import "./UserList.css";
+import { toast } from "react-toastify";
 
 const UserCreate = ({ onClose, onUserCreated }) => {
   const [name, setName] = useState("");
@@ -64,7 +65,7 @@ const UserCreate = ({ onClose, onUserCreated }) => {
 
     try {
       await api.post("/users/register", payload);
-      alert("Usuário criado com sucesso!");
+      toast.success("Usuário criado com sucesso!");
       onUserCreated();
       onClose();
     } catch (error) {
@@ -74,9 +75,9 @@ const UserCreate = ({ onClose, onUserCreated }) => {
         typeof error.response.data === "string" &&
         error.response.data.includes("Email já cadastrado")
       ) {
-        alert("Erro: o e-mail informado já está em uso.");
+        toast.error("Erro: o e-mail informado já está em uso.");
       } else {
-        alert("Erro ao criar usuário.");
+        toast.error("Erro ao criar usuário.");
       }
       console.error("Erro ao criar usuário:", error);
     }

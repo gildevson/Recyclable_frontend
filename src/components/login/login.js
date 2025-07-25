@@ -1,23 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import logo from "../img/logo.png";
 import "./login.css";
+import Loading from "../ui/modal/Loading/Loading";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [linkLoading, setLinkLoading] = useState(false); // usado ao clicar em "esqueci minha senha"
     const navigate = useNavigate();
 
-    // Função para validar email
+    // ✅ Ao montar a tela de login, verifica se veio da tela de "esqueci minha senha"
+    useEffect(() => {
+        const cameFromForgot = sessionStorage.getItem("fromForgotPassword");
+        if (cameFromForgot) {
+            setLoading(true);
+            setTimeout(() => {
+                setLoading(false);
+                sessionStorage.removeItem("fromForgotPassword"); // limpa para não repetir
+            }, 1000); // tempo do loading
+        }
+    }, []);
+
     const validateEmail = (email) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     };
 
-    // Lida com a submissão do formulário de login
+    const handleForgotPasswordClick = () => {
+        setLinkLoading(true);
+        sessionStorage.setItem("fromLogin", "true"); // marca que veio do login
+        setTimeout(() => {
+            navigate("/forgot-password");
+        }, 1000);
+    };
+
+    // Se estiver carregando login ou indo para forgot-password, mostra a tela de loading
+    if (loading || linkLoading) return <Loading />;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (loading) return;
@@ -96,9 +119,14 @@ const Login = () => {
                     </button>
                 </form>
 
-                <a href="/forgot-password" className="forgot-password-link">
-                    Esqueceu sua senha?
-                </a>
+                <button
+                    type="button"
+                    onClick={handleForgotPasswordClick}
+                    className="forgot-password-link"
+                    disabled={linkLoading}
+                >
+                    {linkLoading ? <span className="spinner"></span> : "Esqueceu sua senha?"}
+                </button>
             </div>
         </div>
     );
