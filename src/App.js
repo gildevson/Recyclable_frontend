@@ -10,12 +10,11 @@ import UserCreate from "./components/pages/users/UserCreate";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./components/forgotPassword/forgotPassword";
-
+import ResetPassword from "./components/resetPassword/resetPassword"; // importe o componente
 
 const AppLayout = () => {
   const location = useLocation();
-  const hideMenu = location.pathname === "/login" || location.pathname === "/forgot-password";
-
+  const hideMenu = location.pathname === "/login" || location.pathname === "/forgot-password" || location.pathname === "/reset-password";
 
   return (
     <div className="app-container">
@@ -25,6 +24,7 @@ const AppLayout = () => {
           {/* Públicas */}
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} /> {/* <-- ADICIONAR AQUI */}
 
           {/* Protegidas */}
           <Route element={<PrivateRoutes />}>
