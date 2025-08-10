@@ -7,12 +7,12 @@
   --secondary-color: #21425e; /* Azul escuro da sua imagem de referência */
   --secondary-dark: #0d2335;
   --text-color-dark: #212529;
-  --text-color-light: #6C757D;
-  --white: #FFFFFF;
-  --off-white: #F8F9FA;
-  --gray-light: #E9ECEF;
-  --gray-medium: #DDE2E7;
-  --border-color: #DEE2E6;
+  --text-color-light: #0c0c0c;
+  --white: #141313;
+  --off-white: #06101a;
+  --gray-light: #326292;
+  --gray-medium: #187fe6;
+  --border-color: #1272d3;
   --error-color: #dc3545;
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -35,11 +35,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--off-white);
-  padding: var(--spacing-md);
+  /* Gradiente na diagonal, do canto superior esquerdo para o inferior direito */
+  background: linear-gradient(45deg, rgb(10, 5, 6), #2752a3); 
   box-sizing: border-box;
 }
-
 /* Caixa de login que agora é um flex container de duas colunas */
 .login-box {
   display: flex;
@@ -72,7 +71,7 @@
 
 .form-title {
   font-size: 2rem;
-  color: var(--text-color-dark);
+  color: black;
   font-weight: 700;
   margin-bottom: var(--spacing-lg);
   line-height: 1.2;

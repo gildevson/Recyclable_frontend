@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify"; // Importante!
+import { toast } from "react-toastify";
 import api from "../../services/api";
 import Modal from "../../ui/modal/Modal";
 import UserCreate from "./UserCreate";
@@ -33,7 +33,6 @@ const UserList = () => {
   };
 
   const handleCreate = () => setShowModal(true);
-
   const handleEdit = (userId) => navigate(`/users/edit/${userId}`);
 
   const handleDelete = async (id) => {
@@ -45,19 +44,14 @@ const UserList = () => {
 
     try {
       await api.delete(`/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
       toast.success("Usuário excluído com sucesso!");
       setUsers((prev) => prev.filter((user) => user.id !== id));
     } catch (error) {
       console.error(error);
-
       if (error.response?.status === 403) {
         toast.error("Você não tem permissão para excluir este usuário.");
-        // Não redireciona, apenas avisa
       } else {
         toast.error("Erro ao excluir usuário.");
       }
@@ -67,79 +61,95 @@ const UserList = () => {
   };
 
   const getPermissionLabel = (user) => {
-    if (!user.permissions || user.permissions.length === 0) {
-      return "Sem permissões";
-    }
+    if (!user.permissions || user.permissions.length === 0) return "Sem permissões";
     return user.permissions
       .map((p) => (typeof p === "object" ? p.description : p))
       .join(", ");
   };
 
   return (
-    <div className="user-list-container">
-      <div className="user-list-header">
-        <h2>Lista de Usuários</h2>
-        {isAdmin && (
-          <button className="create-button" onClick={handleCreate}>
-            <FaPlus /> Novo Usuário
-          </button>
-        )}
-      </div>
+    // Se TIVER sidebar visível na página, envolva com .has-sidebar (opcional)
+    <div className="has-sidebar">
+      <div className="user-list-container">
+        <div className="user-list-header">
+          <h2>Lista de Usuários</h2>
+          {isAdmin && (
+            <button
+              className="create-button"
+              onClick={handleCreate}
+              aria-label="Criar novo usuário"
+            >
+              <FaPlus /> Novo Usuário
+            </button>
+          )}
+        </div>
 
-      <table className="user-table">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Permissões</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.length > 0 ? (
-            users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{getPermissionLabel(user)}</td>
-                <td className="action-buttons">
-                  <button
-                    className="action-button edit"
-                    onClick={() => handleEdit(user.id)}
-                    title="Alterar Usuário"
-                  >
-                    <FaEdit />
-                  </button>
-                  {isAdmin && loggedInUser?.id !== user.id && (
+        <table className="user-table" aria-label="Lista de usuários">
+          <caption className="sr-only">
+            Tabela de usuários com nome, email, permissões e ações
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Email</th>
+              <th scope="col" className="col-permissions">Permissões</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.length > 0 ? (
+              users.map((user) => (
+                <tr key={user.id}>
+                  <td data-label="Nome">{user.name}</td>
+                  <td data-label="Email" title={user.email}>
+                    {user.email}
+                  </td>
+                  <td data-label="Permissões" className="col-permissions">
+                    {getPermissionLabel(user)}
+                  </td>
+                  <td data-label="Ações" className="action-buttons">
                     <button
-                      className="action-button delete"
-                      onClick={() => handleDelete(user.id)}
-                      title="Excluir Usuário"
-                      disabled={deletingUserId === user.id}
+                      className="action-button edit"
+                      onClick={() => handleEdit(user.id)}
+                      title="Alterar Usuário"
+                      aria-label={`Editar usuário ${user.name}`}
                     >
-                      {deletingUserId === user.id ? "Excluindo..." : <FaTrash />}
+                      <FaEdit />
                     </button>
-                  )}
+                    {isAdmin && loggedInUser?.id !== user.id && (
+                      <button
+                        className="action-button delete"
+                        onClick={() => handleDelete(user.id)}
+                        title="Excluir Usuário"
+                        aria-label={`Excluir usuário ${user.name}`}
+                        disabled={deletingUserId === user.id}
+                      >
+                        {deletingUserId === user.id ? "Excluindo..." : <FaTrash />}
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" data-label="Mensagem">
+                  Nenhum usuário encontrado.
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4">Nenhum usuário encontrado.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
 
-      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-        <UserCreate
-          onUserCreated={() => {
-            setShowModal(false);
-            fetchUsers();
-          }}
-          onClose={() => setShowModal(false)}
-        />
-      </Modal>
+        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+          <UserCreate
+            onUserCreated={() => {
+              setShowModal(false);
+              fetchUsers();
+            }}
+            onClose={() => setShowModal(false)}
+          />
+        </Modal>
+      </div>
     </div>
   );
 };
