@@ -3,7 +3,7 @@ import api from "../../services/api";
 import "./UserList.css";
 import { toast } from "react-toastify";
 
-const UserCreate = ({ onClose, onUserCreated }) => {
+const UserCreate = ({ onClose, onUserCreated }) => { // desempenho
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
