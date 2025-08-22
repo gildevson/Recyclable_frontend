@@ -1,35 +1,32 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: /* import.meta.env.VITE_API_URL || */ "http://localhost:8080",
   withCredentials: true,
 });
 
-// Interceptor de requisição: adiciona token automaticamente
+// Request: injeta token
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
-  if (token) {
-    config.headers["Authorization"] = `Bearer ${token}`;
-  }
+  if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Interceptor de resposta: trata erros globais
+// Response: trata erros globais
 api.interceptors.response.use(
-  response => response,
-  error => {
-    const status = error.response?.status;
-
+  (res) => res,
+  (err) => {
+    const status = err.response?.status;
     if (status === 401) {
-      console.warn("⚠️ Token expirado ou não autenticado. Redirecionando para login.");
+      console.warn("⚠️ 401: não autenticado/expirado. Limpando sessão.");
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("username");
       window.location.href = "/login";
     } else if (status === 403) {
-      console.warn("⚠️ Acesso negado (403). Permissão insuficiente.");
-      // NÃO redireciona para login — você pode exibir um alerta aqui se quiser
+      console.warn("⚠️ 403: permissão insuficiente.");
     }
-
-    return Promise.reject(error);
+    return Promise.reject(err);
   }
 );
 

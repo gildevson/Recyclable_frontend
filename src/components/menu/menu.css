@@ -1,354 +1,485 @@
-/* Reset padrão */
+/* =========================
+   RESET & BASE
+   ========================= */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Estilo do body */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f3;
-    color: #cecedd;
-    margin: 0;
-    padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f3;
+  color: #E1E1E6;
 }
 
-/* Botão hambúrguer */
+/* =========================
+   HAMBURGER
+   ========================= */
 .hamburger {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1100;
-    background-color: transparent;
-    border: none;
-    color: #E1E1E6;
-    font-size: 30px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  background: transparent;
+  border: none;
+  color: #E1E1E6;
+  font-size: 30px;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .hamburger:hover,
 .hamburger:focus {
-    color: #8257E6; /* Cor de destaque no hover */
+  color: #8257E6;
 }
 
-/* Menu lateral */
+/* =========================
+   SIDEBAR MENU
+   ========================= */
 .menu-container {
-    width: 250px;
-    height: 100vh;
-    background-color: #202024;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    position: fixed;
-    left: -250px; /* Oculto por padrão */
-    top: 0;
-    z-index: 1000;
-    transition: left 0.3s ease-in-out; /* Transição suave ao abrir/fechar */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra no menu */
+  width: 250px;
+  height: 100vh;
+  background-color: #202024;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+  position: fixed;
+  left: -250px;
+  top: 0;
+  z-index: 1000;
+  transition: left 0.3s ease-in-out;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Quando o menu está aberto */
 .menu-container.open {
-    left: 0; /* Mostra o menu quando aberto */
+  left: 0;
 }
 
-/* Overlay que cobre a tela quando o menu está aberto */
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 900; /* Abaixo do menu */
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 900;
 }
 
-/* Seção de usuário */
+/* =========================
+   SEARCH
+   ========================= */
+.menu-search {
+  margin-top: 10px;
+  padding: 0 20px;
+}
+
+.menu-search input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #2b2f3a;
+  background-color: #152536;
+  color: #E1E1E6;
+  outline: none;
+}
+
+.menu-search input::placeholder {
+  color: #9aa0aa;
+}
+
+/* =========================
+   USER INFO
+   ========================= */
 .user-info {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 30px;
-    margin-top: 80px;
-    padding-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 16px 0 20px;
+  padding-left: 20px;
+  color: #fff;
 }
 
 .user-info span {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #FFFFFF;
-    margin-left: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 10px;
 }
 
-/* Estilo para o menu */
+.user-info .user-icon {
+  font-size: 24px;
+}
+
+/* =========================
+   MAIN LIST
+   ========================= */
 .menu {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 20px;
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
 }
 
-.menu li {
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    color: #E1E1E6;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-    margin-bottom: 10px;
-    border-radius: 8px;
+.menu-item {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #E1E1E6;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color .3s ease, color .3s ease;
+  margin-bottom: 10px;
 }
 
-.menu li:hover {
-    background-color: #29292E;
-    color: #FFFFFF;
+.menu-item:hover {
+  background-color: #29292E;
+  color: #fff;
 }
 
-.menu li.active {
-    background-color: #8257E6;
-    color: #FFFFFF;
+.menu-item svg {
+  font-size: 20px;
 }
 
-/* Ícones no menu */
-.menu li svg {
-    margin-right: 10px;
-    font-size: 20px;
+.menu-item.active {
+  background-color: #8257E6;
+  color: #fff;
 }
 
-/* Menu inferior */
+.menu-link {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1rem;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.menu-link svg {
+  margin-right: 10px;
+}
+
+/* =========================
+   GROUPS & SUBMENUS
+   ========================= */
+.menu-group {
+  display: block;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.menu-group-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  padding: 15px 20px;
+  cursor: pointer;
+  color: #E1E1E6;
+  border-radius: 8px;
+  transition: background-color .3s ease, color .3s ease;
+  text-align: left;
+}
+
+.menu-group-toggle:hover {
+  background-color: #29292E;
+  color: #fff;
+}
+
+.menu-group.open .menu-group-toggle {
+  background-color: #25252a;
+}
+
+.menu-group-caret {
+  margin-left: auto;
+  display: inline-flex;
+  font-size: 14px;
+}
+
+.menu-group .submenu {
+  margin: 6px 0 0 12px;
+  padding-left: 12px;
+  border-left: 2px solid rgba(255, 255, 255, 0.12);
+  list-style: none;
+}
+
+.submenu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  color: #E1E1E6;
+  border-radius: 8px;
+  transition: background-color .3s ease, color .3s ease;
+}
+
+.submenu-item:hover {
+  background-color: #29292E;
+  color: #fff;
+}
+
+.submenu-item.active {
+  background-color: #8257E6;
+  color: #fff;
+}
+
+.submenu-item svg {
+  font-size: 18px;
+}
+
+/* =========================
+   SECTIONS (without toggle)
+   ========================= */
+.menu-section {
+  background: #242429;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 12px 10px;
+}
+
+.menu-section-title {
+  display: block;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #9aa0aa;
+  padding: 6px 8px 10px;
+}
+
+.menu-section .submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 6px 0;
+  border-left: none;
+}
+
+.menu-section .submenu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  margin: 4px 4px;
+  border-radius: 8px;
+  color: #E1E1E6;
+  background: transparent;
+  position: static;
+}
+
+.menu-section .submenu-item:hover {
+  background: #29292E;
+  color: #fff;
+}
+
+.menu-section .submenu-item.active {
+  background: #8257E6;
+  color: #fff;
+}
+
+/* =========================
+   FOOTER (fixed to bottom)
+   ========================= */
 .menu-bottom {
-    list-style-type: none;
-    padding: 0;
-    margin-top: auto;
+  list-style: none;
+  padding: 0;
+  margin-top: auto;
 }
 
-.menu-bottom li {
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    color: #E1E1E6;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+.menu-bottom .menu-item:hover {
+  background-color: #29292E;
+  color: #fff;
 }
 
-.menu-bottom li:hover {
-    background-color: #29292E;
-    color: #FFFFFF;
-}
-
-/* Estilo para dispositivos móveis */
-@media (max-width: 768px) {
-    .hamburger {
-        display: block; /* Exibe o botão hambúrguer em telas menores */
-    }
-
-    .menu-container {
-        left: -250px; /* Menu oculto por padrão em telas menores */
-    }
-
-    .menu-container.open {
-        left: 0; /* Mostra o menu ao clicar no botão hambúrguer */
-    }
-}
-
-/* Estilo para telas maiores */
-@media (min-width: 769px) {
-    .hamburger {
-        display: none; /* Oculta o botão hambúrguer em telas maiores */
-    }
-
-    .menu-container {
-        left: 0; /* Menu sempre visível em telas maiores */
-    }
-
-    .overlay {
-        display: none; /* Sem overlay em telas grandes */
-    }
-}
-
+/* =========================
+   LOGOUT
+   ========================= */
 .logout-button {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .logout-button:hover {
-    color: #ff4d4f;  /* Muda a cor ao passar o mouse */
-  }
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color .3s ease;
+  width: 100%;
+  text-align: left;
+}
 
+.logout-button:hover {
+  color: #ff4d4f;
+}
 
-  .loading-screen {
-    position: fixed; /* Altera para fixed para garantir que ocupe a tela inteira */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    background-color: rgba(28, 24, 24, 0.8); /* Cor de fundo com opacidade */
-    z-index: 1000; 
-    font-weight: bold;
-    color: #ff5100;
+/* =========================
+   LOADING
+   ========================= */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(28, 24, 24, 0.8);
+  z-index: 1200;
+  font-weight: bold;
+  color: #ff5100;
 }
 
 .spinner {
-    width: 50px;
-    height: 50px;
-    border: 8px solid rgba(0, 0, 0, 0.1);
-    border-top: 8px solid #4b84ee;
-    border-radius: 50%;
-    animation: spin 1.5s linear infinite;
+  width: 50px;
+  height: 50px;
+  border: 8px solid rgba(0, 0, 0, 0.1);
+  border-top: 8px solid #4b84ee;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-
-/* Estilo para o formulário */
+/* =========================
+   FORMS (reusable)
+   ========================= */
 .user-form {
-    background-color: #202024;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-    margin: 20px auto;
-    max-width: 400px;
-    transition: all 0.3s ease;
+  background-color: #202024;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
+  max-width: 400px;
+  transition: all .3s ease;
 }
 
 .user-form h2 {
-    color: #fff;
-    margin-bottom: 20px;
-    text-align: center;
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .inputField {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .inputField label {
-    display: block;
-    color: #E1E1E6;
-    margin-bottom: 5px;
+  display: block;
+  color: #E1E1E6;
+  margin-bottom: 5px;
 }
 
 .inputField input,
 .inputField select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #29292E;
-    color: #fff;
-    font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #29292E;
+  color: #fff;
+  font-size: 16px;
 }
 
 .inputField input:focus,
 .inputField select:focus {
-    outline: none;
-    border: 2px solid #8257E6; /* Destaque no campo ativo */
+  outline: none;
+  border: 2px solid #8257E6;
 }
 
-/* Botão de enviar */
 .submitButton {
-    width: 100%;
-    padding: 12px;
-    background-color: #007BFF;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  background-color: #007BFF;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color .3s ease;
 }
 
 .submitButton:hover {
-    background-color: #0056b3; /* Cor ao passar o mouse */
+  background-color: #0056b3;
 }
 
-/*FaSignOutAlt
-
-*/
-
+/* =========================
+   STANDARD TABLE
+   ========================= */
 .user-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 16px;
-    text-align: left; /* Alinha o texto à esquerda */
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
 }
 
-/* Cabeçalho da tabela */
 .user-table thead th {
-    background-color: #202024;
-    color: #E1E1E6;
-    padding: 12px;
-    text-align: left; /* Alinha o cabeçalho à esquerda */
+  background-color: #202024;
+  color: #E1E1E6;
+  padding: 12px;
+  text-align: left;
 }
 
-/* Linhas da tabela */
 .user-table tbody tr {
-    background-color: #29292E;
-    color: #E1E1E6;
+  background-color: #29292E;
+  color: #E1E1E6;
 }
 
-/* Células da tabela */
 .user-table tbody td {
-    padding: 12px;
-    text-align: left; /* Alinha o conteúdo à esquerda */
-    border-bottom: 1px solid #383838; /* Linha de separação */
+  padding: 12px;
+  border-bottom: 1px solid #383838;
 }
 
-/* Células da tabela no hover */
 .user-table tbody tr:hover {
-    background-color: #32323A;
+  background-color: #32323A;
 }
 
-/* Estilo do botão de excluir */
 .deleteButton {
-    background-color: #ff4d4f;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color .3s ease;
 }
 
 .deleteButton:hover {
-    background-color: #d63638;
+  background-color: #d63638;
 }
 
-.menu-link {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    text-align: left;
-    padding: 0.2px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    width: 100%;
+/* =========================
+   RESPONSIVENESS
+   ========================= */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .menu-container {
+    left: -250px;
+  }
+
+  .menu-container.open {
+    left: 0;
+  }
 }
 
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
 
+  .menu-container {
+    left: 0;
+  }
 
-.menu-link svg {
-    margin-right: 10px;
+  .overlay {
+    display: none;
+  }
 }

@@ -6,11 +6,12 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoutes from "./components/routes/PrivateRoute";
 import "./App.css";
 import UserList from "./components/pages/users/UserList";
-import UserCreate from "./components/pages/users/UserCreate";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./components/forgotPassword/forgotPassword";
 import ResetPassword from "./components/resetPassword/resetPassword"; // importe o componente
+import UserCreate from "./components/pages/userCreate/UserCreate";
 
 const AppLayout = () => {
   const location = useLocation();
