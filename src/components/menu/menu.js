@@ -75,7 +75,7 @@ const Menu = () => {
         { type: "item", label: "Relatório Mensal", icon: <FaChartBar />, path: "/monthly-report" },
         { type: "item", label: "Relatório Anual", icon: <FaChartBar />, path: "/annual-report" },
         { type: "item", label: "Listar Usuários", icon: <FaUsers />, path: "/users" },
-        { type: "item", label: "Cliente", icon: <FaUser />, path: "/cliente" },
+        { type: "item", label: "Cliente", icon: <FaUser />, path: "/clientes" },
       ],
     },
     {
