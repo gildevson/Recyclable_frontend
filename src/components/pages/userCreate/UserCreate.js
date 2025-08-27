@@ -119,7 +119,6 @@ const UserCreate = ({ onClose, onUserCreated }) => {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
-
       onUserCreated?.();
       onClose?.();
     } catch (error) {

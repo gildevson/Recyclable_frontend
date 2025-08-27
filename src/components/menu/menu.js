@@ -11,7 +11,7 @@ import {
   FaChevronRight,
   FaTools,
   FaMoneyBillWave,
-  FaBuilding,
+  FillPersonCheckFill,
   FaUsers,
   FaAddressCard,
   FaFolder, // <--- Novo ícone
@@ -65,25 +65,17 @@ const Menu = () => {
   const menuTree = [
     { type: "item", label: "Home", icon: <FaHome />, path: "/dashboard" },
     { type: "item", label: "Operação", icon: <FaTachometerAlt />, path: "/operacao" },
-    { type: "item", label: "Manutenção de documentos", icon: <FaAddressCard />, path: "/manutencao-documentos" },
-    { type: "item", label: "Cliente", icon: <FaUser />, path: "/cliente" },
-    {
-      type: "section",
-      label: "Cadastros",
-      children: [
-        { type: "item", label: "Empresa", icon: <FaBuilding />, path: "/cadastros/empresa" },
-        { type: "item", label: "Cliente", icon: <FaUser />, path: "/cadastros/cliente" },
-        { type: "item", label: "Usuários", icon: <FaUsers />, path: "/cadastros/usuarios" },
-      ],
-    },
+    { type: "item", label: "Titulos Operados", icon: <FaAddressCard />, path: "/manutencao-documentos" },
     {
       type: "group",
-      label: "Operacional",
+      label: "Cadastros",
       key: "Operacional",
-      icon: <FaTools />,
+      icon:<FaUser />,
       children: [
         { type: "item", label: "Relatório Mensal", icon: <FaChartBar />, path: "/monthly-report" },
         { type: "item", label: "Relatório Anual", icon: <FaChartBar />, path: "/annual-report" },
+        { type: "item", label: "Listar Usuários", icon: <FaUsers />, path: "/users" },
+        { type: "item", label: "Cliente", icon: <FaUser />, path: "/cliente" },
       ],
     },
     {
@@ -95,8 +87,6 @@ const Menu = () => {
         { type: "item", label: "Faturamento", icon: <FaMoneyBillWave />, path: "/financeiro/faturamento" },
       ],
     },
-    { type: "item", label: "Listar Usuários", icon: <FaUsers />, path: "/users" },
-    { type: "item", label: "Listar Clientes", icon: <FaUser />, path: "/clients" },
   ];
 
   const filterBySearch = (node, term) => {
