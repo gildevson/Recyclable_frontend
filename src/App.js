@@ -32,6 +32,7 @@ const AppLayout = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/users" element={<UserList />} />
             <Route path="/users/new" element={<UserCreate />} />
+            <Route path="/clientes" element={<UserCreate />} />
           </Route>
 
           {/* Catch-all */}
