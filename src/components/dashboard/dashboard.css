@@ -1,198 +1,278 @@
-/* Container principal do Dashboard */
-.dashboard-container {
-    padding: 40px;
-    margin-left: 250px;
-    width: calc(100% - 250px);
-    background: linear-gradient(150deg, #21425e 0%, #0d2335 50%, #21425e 100%);
-    min-height: 100vh;
-    display: flex;
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #3b82f6;
+  --primary-200: #93c5fd;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --chip: #e5e7eb;
+  --shadow: 0 2px 10px rgba(17, 24, 39, .08);
+  --radius: 14px;
+}
+
+body {
+  background: var(--bg);
+  margin: 0;
+  font-family: sans-serif;
+}
+
+/* Wrapper */
+.dash-wrap {
+  padding: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.dash-header h1 {
+  font-size: 26px;
+  color: var(--text);
+  margin: 0;
+  font-weight: 700;
+}
+
+.dash-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-ghost {
+  border: none;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* KPI Cards */
+.top-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kpi-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpi-title {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.chip {
+  font-size: 12px;
+  background: var(--chip);
+  color: var(--muted);
+  padding: 4px 8px;
+  border-radius: 10px;
+}
+
+.kpi-number {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.kpi-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.badge.up {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.badge.down {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Charts Grid */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.chart-card,
+.list-card,
+.alert-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.card-head h3 {
+  margin: 0 0 12px 0;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.list-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-card li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eef0f4;
+  color: var(--text);
+}
+
+.list-card li:last-child {
+  border-bottom: none;
+}
+
+.alert-card p {
+  margin: 8px 0;
+  color: #92400e;
+  background: #fff7ed;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+/* Tooltip fix */
+.recharts-default-tooltip {
+  background: #111827 !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  box-shadow: var(--shadow);
+  font-size: 12px;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+  .dash-header {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .dash-header h1 {
+    font-size: 22px;
+  }
+
+  .dash-header p {
+    font-size: 14px;
+  }
+  
+  .header-actions {
+    width: 100%;
     justify-content: flex-start;
+    flex-wrap: nowrap; /* Evita quebras de linha desnecessárias */
+    overflow-x: auto; /* Adiciona scroll horizontal se necessário */
+  }
+
+  /* Ajusta o padding para telas pequenas */
+  .dash-wrap {
+    padding: 15px;
+  }
+
+  .top-grid {
+    grid-template-columns: 1fr; /* Colunas de KPI em uma única linha */
+    gap: 12px;
+  }
+
+  .bottom-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .chart-card,
+  .list-card,
+  .alert-card {
+    padding: 15px;
+  }
+
+  .kpi-number {
+    font-size: 24px;
+  }
 }
 
-/* Título do Dashboard */
-.dashboard-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-align: center;
-}
-
-/* Grid de Cards */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    width: 100%;
-    max-width: 1300px;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Estilização dos Cards */
-.dashboard-card {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.dashboard-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-/* Texto dentro dos cards */
-.dashboard-card h2 {
+/* Ajustes para telas muito pequenas (smartphones) */
+@media (max-width: 480px) {
+  .dash-header h1 {
     font-size: 20px;
-    color: #333;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
+  }
+  
+  .btn-ghost,
+  .btn-primary {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
 
-.dashboard-card p {
-    font-size: 26px;
-    font-weight: bold;
-    color: #007bff;
-}
+  .kpi-card {
+    padding: 15px;
+  }
 
-/* Container de Gráficos */
-.dashboard-charts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 30px;
-    width: 100%;
-    max-width: 1300px;
-    margin-top: 50px;
-}
-
-/* Estilização dos gráficos */
-.chart-container {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.chart-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-/* Título dos gráficos */
-.chart-container h3 {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-/* Atividades Recentes */
-.recent-activities {
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    text-align: left;
-}
-
-.recent-activities h3 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.recent-activities ul {
-    list-style: none;
-    padding: 0;
-}
-
-.recent-activities li {
-    padding: 8px 0;
-    font-size: 16px;
-    color: #555;
-    border-bottom: 1px solid #eee;
-}
-
-/* Avisos do Sistema */
-.alert-box {
-    background-color: #fff3cd;
-    padding: 20px;
-    border-radius: 12px;
-    border-left: 5px solid #ff9800;
-    width: 100%;
-    text-align: center;
-}
-
-.alert-box h3 {
-    font-size: 18px;
-    color: #856404;
-    margin-bottom: 10px;
-}
-
-.alert-box p {
-    font-size: 16px;
-    color: #856404;
-    font-weight: bold;
-}
-
-/* Nova Tabela: Últimos Usuários Cadastrados */
-.table-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 100%;
-}
-
-.table-container table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table-container th,
-.table-container td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-}
-
-.table-container th {
-    background-color: #007bff;
-    color: white;
-}
-
-.table-container tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Responsividade */
-@media (max-width: 1024px) {
-    .dashboard-container {
-        margin-left: 0;
-        width: 100%;
-        padding: 20px;
-    }
-
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .dashboard-charts {
-        grid-template-columns: 1fr;
-    }
+  .kpi-number {
+    font-size: 22px;
+  }
+  
+  .kpi-title {
+    font-size: 14px;
+  }
 }
