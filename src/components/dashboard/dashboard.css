@@ -1,3 +1,10 @@
+/*
+  Dashboard Styles
+  This file contains the styles for the entire dashboard layout.
+  The styles are organized using a BEM-like structure for clarity and
+  maintainability.
+*/
+
 :root {
   --bg: #f6f7fb;
   --card: #ffffff;
@@ -61,6 +68,11 @@ body {
   border-radius: 10px;
   padding: 8px 12px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  background: #eef0f4;
 }
 
 .btn-primary {
@@ -71,6 +83,11 @@ body {
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
 }
 
 /* KPI Cards */
@@ -161,6 +178,10 @@ body {
   padding: 18px;
 }
 
+.chart-card.span-2 {
+  grid-column: span 2;
+}
+
 .card-head h3 {
   margin: 0 0 12px 0;
   color: var(--text);
@@ -203,7 +224,7 @@ body {
 }
 
 /* RESPONSIVE ADJUSTMENTS */
-/* Ajustes para telas menores */
+/* Media queries for smaller screens */
 @media (max-width: 768px) {
   .dash-header {
     flex-direction: column;
@@ -222,17 +243,16 @@ body {
   .header-actions {
     width: 100%;
     justify-content: flex-start;
-    flex-wrap: nowrap; /* Evita quebras de linha desnecessárias */
-    overflow-x: auto; /* Adiciona scroll horizontal se necessário */
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
 
-  /* Ajusta o padding para telas pequenas */
   .dash-wrap {
     padding: 15px;
   }
 
   .top-grid {
-    grid-template-columns: 1fr; /* Colunas de KPI em uma única linha */
+    grid-template-columns: 1fr;
     gap: 12px;
   }
 
@@ -252,7 +272,7 @@ body {
   }
 }
 
-/* Ajustes para telas muito pequenas (smartphones) */
+/* Media queries for very small screens (smartphones) */
 @media (max-width: 480px) {
   .dash-header h1 {
     font-size: 20px;

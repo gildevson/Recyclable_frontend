@@ -22,6 +22,7 @@ function parseClientesXml(xmlString) {
     clienteEmail: getText(item, "clienteEmail"),
     clienteTelefone: getText(item, "clienteTelefone"),
     clienteCelular: getText(item, "clienteCelular"),
+    clienteEndereco: getText(item, "clienteEndereco"),
     createdAt: getText(item, "createdAt"),
   }));
 }
@@ -68,11 +69,12 @@ export default function ClienteList() {
         <thead>
           <tr>
             <th style={{ textAlign: "left" }}>Nome</th>
-            <th style={{ textAlign: "left" }}>CNPJ</th>
+            <th style={{ textAlign: "left" }}>CNPJ/CPF</th>
             <th style={{ textAlign: "left" }}>Email</th>
             <th style={{ textAlign: "left" }}>Telefone</th>
             <th style={{ textAlign: "left" }}>Celular</th>
             <th style={{ textAlign: "left" }}>Criado em</th>
+            <th style={{ textAlign: "left" }}>Endereco</th>
           </tr>
         </thead>
         <tbody>
@@ -84,6 +86,7 @@ export default function ClienteList() {
               <td>{c.clienteTelefone}</td>
               <td>{c.clienteCelular}</td>
               <td>{c.createdAt}</td>
+              <td>{c.clienteEndereco}</td>
             </tr>
           ))}
           {!clientes.length && (

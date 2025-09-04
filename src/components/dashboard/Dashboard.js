@@ -5,27 +5,28 @@ import {
 } from "recharts";
 import "./dashboard.css";
 
+// --- Data Definitions ---
+const monthlyData = [
+  { name: "Jan", users: 50, sales: 20, mobile: 55, desktop: 65 },
+  { name: "Feb", users: 80, sales: 40, mobile: 60, desktop: 70 },
+  { name: "Mar", users: 120, sales: 60, mobile: 35, desktop: 25 },
+  { name: "Apr", users: 140, sales: 90, mobile: 58, desktop: 52 },
+  { name: "May", users: 160, sales: 110, mobile: 60, desktop: 55 },
+  { name: "Jun", users: 175, sales: 125, mobile: 50, desktop: 40 },
+  { name: "Jul", users: 185, sales: 135, mobile: 55, desktop: 45 },
+  { name: "Aug", users: 190, sales: 140, mobile: 60, desktop: 50 },
+  { name: "Sep", users: 200, sales: 150, mobile: 62, desktop: 52 },
+  { name: "Oct", users: 240, sales: 170, mobile: 78, desktop: 62 },
+  { name: "Nov", users: 150, sales: 95, mobile: 45, desktop: 40 },
+  { name: "Dec", users: 230, sales: 160, mobile: 70, desktop: 65 },
+];
+
+const userStatusData = [
+  { name: "Active", value: 60, color: "#3b82f6" },
+  { name: "Inactive", value: 40, color: "#93c5fd" },
+];
+
 const Dashboard = () => {
-  const userData = [
-    { name: "Jan", usuarios: 50, vendas: 20, mobile: 55, desktop: 65 },
-    { name: "Fev", usuarios: 80, vendas: 40, mobile: 60, desktop: 70 },
-    { name: "Mar", usuarios: 120, vendas: 60, mobile: 35, desktop: 25 },
-    { name: "Abr", usuarios: 140, vendas: 90, mobile: 58, desktop: 52 },
-    { name: "Mai", usuarios: 160, vendas: 110, mobile: 60, desktop: 55 },
-    { name: "Jun", usuarios: 175, vendas: 125, mobile: 50, desktop: 40 },
-    { name: "Jul", usuarios: 185, vendas: 135, mobile: 55, desktop: 45 },
-    { name: "Ago", usuarios: 190, vendas: 140, mobile: 60, desktop: 50 },
-    { name: "Set", usuarios: 200, vendas: 150, mobile: 62, desktop: 52 },
-    { name: "Out", usuarios: 240, vendas: 170, mobile: 78, desktop: 62 },
-    { name: "Nov", usuarios: 150, vendas: 95,  mobile: 45, desktop: 40 },
-    { name: "Dez", usuarios: 230, vendas: 160, mobile: 70, desktop: 65 },
-  ];
-
-  const pieData = [
-    { name: "Ativos", value: 60, color: "#1e66ff" },
-    { name: "Inativos", value: 40, color: "#ffcc00" },
-  ];
-
   return (
     <div className="dash-wrap">
       {/* HEADER */}
@@ -98,20 +99,20 @@ const Dashboard = () => {
             <span className="muted">Since last week</span>
           </div>
         </div>
-
+        
+        {/* Mobile/Desktop Usage Bar Chart */}
         <div className="chart-card span-2">
           <div className="card-head">
-            <h3>Mobile / Desktop</h3>
+            <h3>Mobile / Desktop Usage</h3>
           </div>
           <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={userData} barGap={4}>
+            <BarChart data={monthlyData} barGap={4}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
               <Legend />
-              {/* azul escuro = desktop / azul claro = mobile */}
               <Bar dataKey="desktop" name="Desktop" stackId="a" fill="#3b82f6" />
-              <Bar dataKey="mobile"  name="Mobile"  stackId="a" fill="#93c5fd" />
+              <Bar dataKey="mobile" name="Mobile" stackId="a" fill="#93c5fd" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -119,56 +120,73 @@ const Dashboard = () => {
 
       {/* SECOND ROW: EXTRA CHARTS / LISTS */}
       <div className="bottom-grid">
+        {/* Monthly Users and Sales Bar Chart */}
         <div className="chart-card">
-          <div className="card-head"><h3>Usuários e Vendas Mensais</h3></div>
+          <div className="card-head">
+            <h3>Monthly Users & Sales</h3>
+          </div>
           <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={userData}>
+            <BarChart data={monthlyData}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="usuarios" name="Usuários" fill="#93c5fd" />
-              <Bar dataKey="vendas"   name="Vendas"   fill="#3b82f6" />
+              <Bar dataKey="users" name="Users" fill="#93c5fd" />
+              <Bar dataKey="sales" name="Sales" fill="#3b82f6" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
+        {/* User Growth Line Chart */}
         <div className="chart-card">
-          <div className="card-head"><h3>Crescimento de Usuários</h3></div>
+          <div className="card-head">
+            <h3>User Growth</h3>
+          </div>
           <ResponsiveContainer width="100%" height={260}>
-            <LineChart data={userData}>
+            <LineChart data={monthlyData}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Line type="monotone" dataKey="usuarios" stroke="#3b82f6" strokeWidth={2} />
+              <Line type="monotone" dataKey="users" stroke="#3b82f6" strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
+        {/* Active vs. Inactive Users Pie Chart */}
         <div className="chart-card">
-          <div className="card-head"><h3>Usuários Ativos x Inativos</h3></div>
+          <div className="card-head">
+            <h3>Active vs. Inactive Users</h3>
+          </div>
           <ResponsiveContainer width="100%" height={260}>
             <PieChart>
-              <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={85}>
-                {pieData.map((e, i) => <Cell key={i} fill={e.color} />)}
+              <Pie data={userStatusData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={85}>
+                {userStatusData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
               </Pie>
             </PieChart>
           </ResponsiveContainer>
         </div>
 
+        {/* Recent Activity List */}
         <div className="list-card">
-          <div className="card-head"><h3>Atividades Recentes</h3></div>
+          <div className="card-head">
+            <h3>Recent Activity</h3>
+          </div>
           <ul>
-            <li>📌 João Silva cadastrou um novo usuário.</li>
-            <li>📊 Relatório mensal de abril foi gerado.</li>
-            <li>📥 Novo usuário Maria Souza se registrou.</li>
-            <li>🔄 Sistema atualizado para a versão 2.0.</li>
+            <li>📌 John Doe added a new user.</li>
+            <li>📊 Monthly report for April was generated.</li>
+            <li>📥 New user Jane Smith signed up.</li>
+            <li>🔄 System updated to version 2.0.</li>
           </ul>
         </div>
 
+        {/* System Alerts */}
         <div className="alert-card">
-          <div className="card-head"><h3>📢 Avisos do Sistema</h3></div>
-          <p>🚀 Atualização agendada para amanhã às 22h.</p>
-          <p>⚠️ Relatório anual precisa ser gerado até dia 10.</p>
+          <div className="card-head">
+            <h3>📢 System Alerts</h3>
+          </div>
+          <p>🚀 Update scheduled for tomorrow at 10 PM.</p>
+          <p>⚠️ Annual report must be generated by the 10th.</p>
         </div>
       </div>
     </div>
