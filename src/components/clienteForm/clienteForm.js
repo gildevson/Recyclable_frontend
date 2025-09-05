@@ -2,6 +2,7 @@
 // src/components/clienteList/ClienteList.jsx
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
+import "./clienteForm.css";
 
 function parseClientesXml(xmlString) {
   const doc = new window.DOMParser().parseFromString(xmlString, "application/xml");
@@ -68,7 +69,7 @@ export default function ClienteList() {
   if (error) return <p style={{ color: "crimson" }}>{error}</p>;
 
   return (
-    <div>
+    <div className="cliente-list">
       <h2>Clientes</h2>
       <button onClick={fetchClientes}>Recarregar</button>
 

@@ -1,6 +1,36 @@
-.titulo {
-    text-align: center;
-    margin-top: 20px;
-    color: #333;
-    font-family: Arial, sans-serif;
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #3b82f6;
+  --primary-200: #93c5fd;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --chip: #e5e7eb;
+  --shadow: 0 2px 10px rgba(17, 24, 39, .08);
+  --radius: 14px;
 }
+
+
+
+/* Contêiner geral */
+.body {
+  background: var(--bg);
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.cliente-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: large;
+  color: #333;
+   padding: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho com título e botão */
