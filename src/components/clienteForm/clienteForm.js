@@ -18,11 +18,18 @@ function parseClientesXml(xmlString) {
   return items.map((item) => ({
     id: getText(item, "id"),
     clienteNome: getText(item, "clienteNome"),
-    clienteCnpj: getText(item, "clienteCnpj"),
+    clienteCnpjCpf: getText(item, "clienteCnpjCpf"),
     clienteEmail: getText(item, "clienteEmail"),
     clienteTelefone: getText(item, "clienteTelefone"),
     clienteCelular: getText(item, "clienteCelular"),
     clienteEndereco: getText(item, "clienteEndereco"),
+    clienteCidade: getText(item, "clienteCidade"),
+    clienteEstado: getText(item, "clienteEstado"),
+    clienteCep: getText(item, "clienteCep"),
+    clienteNumeroCasa: getText(item, "clienteNumeroCasa"),
+    clienteComplemento: getText(item, "clienteComplemento"), 
+    clienteBairro: getText(item, "clienteBairro"),
+    cliente: getText(item, "cliente"),
     createdAt: getText(item, "createdAt"),
   }));
 }
@@ -81,12 +88,22 @@ export default function ClienteList() {
           {clientes.map((c) => (
             <tr key={c.id}>
               <td>{c.clienteNome}</td>
-              <td>{c.clienteCnpj}</td>
+              <td>{c.clienteCnpjCpf}</td>
               <td>{c.clienteEmail}</td>
               <td>{c.clienteTelefone}</td>
               <td>{c.clienteCelular}</td>
               <td>{c.createdAt}</td>
               <td>{c.clienteEndereco}</td>
+              <td>{c.clienteBairro}</td>
+              <td>{c.clienteEstado}</td>
+              <td>{c.clienteCidade}</td>
+              <td>{c.clienteCep}</td>
+              <td>{c.clienteNumeroCasa}</td>
+              <td>{c.clienteComplemento}</td>
+              <td>{c.clienteInscricaoMunicipal}</td>
+              <td>{c.clienteInscricaoEstadual}</td>
+              <td>{c.clienteInscricaoMunicipal}</td>
+              <td>{c.clienteSituacao}</td>
             </tr>
           ))}
           {!clientes.length && (
