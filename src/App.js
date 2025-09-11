@@ -6,12 +6,13 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoutes from "./components/routes/PrivateRoute";
 import "./App.css";
 import UserList from "./components/pages/users/UserList";
-import Cliente from "./components/clienteForm/clienteForm"
+import Cliente from "./components/clienteForm/clienteList"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./components/forgotPassword/forgotPassword";
 import ResetPassword from "./components/resetPassword/resetPassword"; // importe o componente
 import UserCreate from "./components/pages/userCreate/UserCreate";
+import ClienteCadastrar from "./components/clienteForm/clienteCadastrar";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const AppLayout = () => {
             <Route path="/users" element={<UserList />} />
             <Route path="/users/new" element={<UserCreate />} />
             <Route path="/clientes" element={<Cliente/>} />
+            <Route path="/clientes/cadastrar" element={<ClienteCadastrar />} />
           </Route>
 
           {/* Catch-all */}

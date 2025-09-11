@@ -2,7 +2,8 @@
 // src/components/clienteList/ClienteList.jsx
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
-import "./clienteForm.css";
+import "./clienteList.css";
+import { Link } from "react-router-dom";
 
 function parseClientesXml(xmlString) {
   const doc = new window.DOMParser().parseFromString(xmlString, "application/xml");
@@ -23,15 +24,7 @@ function parseClientesXml(xmlString) {
     clienteEmail: getText(item, "clienteEmail"),
     clienteTelefone: getText(item, "clienteTelefone"),
     clienteCelular: getText(item, "clienteCelular"),
-    clienteEndereco: getText(item, "clienteEndereco"),
-    clienteCidade: getText(item, "clienteCidade"),
-    clienteEstado: getText(item, "clienteEstado"),
-    clienteCep: getText(item, "clienteCep"),
-    clienteNumeroCasa: getText(item, "clienteNumeroCasa"),
-    clienteComplemento: getText(item, "clienteComplemento"), 
-    clienteBairro: getText(item, "clienteBairro"),
-    cliente: getText(item, "cliente"),
-    createdAt: getText(item, "createdAt"),
+    clienteSituacao: getText(item, "clienteSituacao"),
   }));
 }
 
@@ -49,7 +42,7 @@ export default function ClienteList() {
         headers: { Accept: "application/xml" },
         // axios não tenta parsear; devolve string
         responseType: "text",
-        transformResponse: [(data) => data], 
+        transformResponse: [(data) => data],
       });
       const lista = parseClientesXml(res.data);
       setClientes(lista);
@@ -72,6 +65,12 @@ export default function ClienteList() {
     <div className="cliente-list">
       <h2>Clientes</h2>
       <button onClick={fetchClientes}>Recarregar</button>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h2>Clientes</h2>
+        <Link to="/clientes/cadastrar">
+          <button>Cadastrar Cliente</button>
+        </Link>
+      </div>
 
       <table style={{ width: "100%", marginTop: 12, borderCollapse: "collapse" }}>
         <thead>
@@ -81,8 +80,7 @@ export default function ClienteList() {
             <th style={{ textAlign: "left" }}>Email</th>
             <th style={{ textAlign: "left" }}>Telefone</th>
             <th style={{ textAlign: "left" }}>Celular</th>
-            <th style={{ textAlign: "left" }}>Criado em</th>
-            <th style={{ textAlign: "left" }}>Endereco</th>
+            <th style={{ textAlign: "left" }}>Situação</th>
           </tr>
         </thead>
         <tbody>
@@ -93,17 +91,6 @@ export default function ClienteList() {
               <td>{c.clienteEmail}</td>
               <td>{c.clienteTelefone}</td>
               <td>{c.clienteCelular}</td>
-              <td>{c.createdAt}</td>
-              <td>{c.clienteEndereco}</td>
-              <td>{c.clienteBairro}</td>
-              <td>{c.clienteEstado}</td>
-              <td>{c.clienteCidade}</td>
-              <td>{c.clienteCep}</td>
-              <td>{c.clienteNumeroCasa}</td>
-              <td>{c.clienteComplemento}</td>
-              <td>{c.clienteInscricaoMunicipal}</td>
-              <td>{c.clienteInscricaoEstadual}</td>
-              <td>{c.clienteInscricaoMunicipal}</td>
               <td>{c.clienteSituacao}</td>
             </tr>
           ))}
