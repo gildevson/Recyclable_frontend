@@ -1,19 +1,16 @@
-
 // src/components/clienteList/ClienteList.jsx
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import "./clienteList.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Loading from "../ui/modal/Loading/Loading";
 
 function parseClientesXml(xmlString) {
   const doc = new window.DOMParser().parseFromString(xmlString, "application/xml");
-
-  // Checa erro de parsing
   const parserError = doc.getElementsByTagName("parsererror")[0];
   if (parserError) throw new Error("Falha ao ler XML.");
 
   const items = Array.from(doc.getElementsByTagName("item"));
-
   const getText = (parent, tag) =>
     parent.getElementsByTagName(tag)[0]?.textContent?.trim() ?? "";
 
@@ -30,17 +27,18 @@ function parseClientesXml(xmlString) {
 
 export default function ClienteList() {
   const [clientes, setClientes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);     // loading da lista
   const [error, setError] = useState("");
+  const [navigating, setNavigating] = useState(false); // loading ao navegar
+
+  const navigate = useNavigate();
 
   async function fetchClientes() {
     try {
       setLoading(true);
       setError("");
       const res = await api.get("/clientes", {
-        // garante que o backend devolva XML (se negocia conteúdo)
         headers: { Accept: "application/xml" },
-        // axios não tenta parsear; devolve string
         responseType: "text",
         transformResponse: [(data) => data],
       });
@@ -58,21 +56,34 @@ export default function ClienteList() {
     fetchClientes();
   }, []);
 
+  function handleCadastrarClick() {
+    setNavigating(true);
+    // pequeno delay para o usuário ver o feedback antes da troca de rota
+    setTimeout(() => navigate("/clientes/cadastrar"), 800);
+  }
+
   if (loading) return <p>Carregando...</p>;
   if (error) return <p style={{ color: "crimson" }}>{error}</p>;
 
   return (
     <div className="cliente-list">
-      <h2>Clientes</h2>
-      <button onClick={fetchClientes}>Recarregar</button>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      {/* Overlay de navegação (carregamento ao clicar em Cadastrar) */}
+      {navigating && (
+        <div className="overlay-loading" role="status" aria-live="polite">
+          <div className="spinner" />
+          <p>Abrindo tela de cadastro...</p>
+        </div>
+      )}
+
+      <div className="list-bar">
         <h2>Clientes</h2>
-        <Link to="/clientes/cadastrar">
-          <button>Cadastrar Cliente</button>
-        </Link>
+        <div className="actions">
+          <button onClick={fetchClientes} className="btn-outline">Recarregar</button>
+          <button onClick={handleCadastrarClick} className="btn-primary">Cadastrar Cliente</button>
+        </div>
       </div>
 
-      <table style={{ width: "100%", marginTop: 12, borderCollapse: "collapse" }}>
+      <table className="cliente-table">
         <thead>
           <tr>
             <th style={{ textAlign: "left" }}>Nome</th>

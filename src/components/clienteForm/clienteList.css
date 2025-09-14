@@ -34,3 +34,85 @@
 }
 
 /* Cabeçalho com título e botão */
+
+
+/* barra do topo */
+.list-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-primary, .btn-outline {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #2b3a44;
+  color: #fff;
+}
+
+.btn-primary:hover { opacity: 0.9; }
+
+.btn-outline {
+  background: #fff;
+  border-color: #d9dee3;
+  color: #2b3a44;
+}
+
+.btn-outline:hover { background: #f5f7f9; }
+
+/* tabela */
+.cliente-table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.cliente-table th, .cliente-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #eef1f4;
+}
+
+/* overlay de carregamento ao navegar */
+
+
+
+.overlay-loading  {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(28, 24, 24, 0.8);
+  z-index: 1200;
+  font-weight: bold;
+  color: #00ccff;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 8px solid rgba(0, 0, 0, 0.1);
+  border-top: 8px solid #4b84ee;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
