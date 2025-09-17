@@ -17,6 +17,7 @@ function parseClientesXml(xmlString) {
   return items.map((item) => ({
     id: getText(item, "id"),
     clienteNome: getText(item, "clienteNome"),
+    clienteRazao: getText(item, "clienteRazao"),
     clienteCnpjCpf: getText(item, "clienteCnpjCpf"),
     clienteEmail: getText(item, "clienteEmail"),
     clienteTelefone: getText(item, "clienteTelefone"),
@@ -98,6 +99,7 @@ export default function ClienteList() {
           {clientes.map((c) => (
             <tr key={c.id}>
               <td>{c.clienteNome}</td>
+              <td>{c.clienteRazao}</td>
               <td>{c.clienteCnpjCpf}</td>
               <td>{c.clienteEmail}</td>
               <td>{c.clienteTelefone}</td>

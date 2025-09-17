@@ -14,6 +14,7 @@ import ResetPassword from "./components/resetPassword/resetPassword"; // importe
 import UserCreate from "./components/pages/userCreate/UserCreate";
 import ClienteCadastrar from "./components/clienteForm/clienteCadastrar";
 
+
 const AppLayout = () => {
   const location = useLocation();
   const hideMenu = location.pathname === "/login" || location.pathname === "/forgot-password" || location.pathname === "/reset-password";
