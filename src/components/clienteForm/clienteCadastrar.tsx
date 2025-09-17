@@ -320,7 +320,17 @@ export default function ClienteCadastrar() {
             <input name="cadPro" value={form.cadPro} onChange={onInputChange} />
           </div>
 
-       
+          <div className="field">
+            <label>
+              <input
+                type="checkbox"
+                name="consultaSerpro"
+                checked={form.consultaSerpro}
+                onChange={onInputChange}
+              />{" "}
+              Consultar SERPRO
+            </label>
+          </div>
         </div>
 
         {/* Feedback de erro e ações */}

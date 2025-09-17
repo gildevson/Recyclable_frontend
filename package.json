@@ -5,8 +5,6 @@
   "dependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^24.5.1",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
     "dotenv": "^16.4.7",
@@ -18,7 +16,6 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.5",
     "recharts": "^2.15.1",
-    "typescript": "^5.9.2",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
@@ -46,6 +43,9 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/react": "18.3.24",
+    "@types/react-dom": "18.3.7",
+    "typescript": "4.9.5"
   }
 }

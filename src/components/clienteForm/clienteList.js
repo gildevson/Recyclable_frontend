@@ -99,7 +99,6 @@ export default function ClienteList() {
           {clientes.map((c) => (
             <tr key={c.id}>
               <td>{c.clienteNome}</td>
-              <td>{c.clienteRazao}</td>
               <td>{c.clienteCnpjCpf}</td>
               <td>{c.clienteEmail}</td>
               <td>{c.clienteTelefone}</td>
