@@ -1,36 +1,14 @@
 // src/components/clienteList/ClienteList.jsx
 import React, { useEffect, useState } from "react";
-import api from "../services/api";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../services/api";          // ← sobe duas pastas até src/services/api
 import "./clienteList.css";
-import { useNavigate } from "react-router-dom";
-import Loading from "../ui/modal/Loading/Loading";
-
-function parseClientesXml(xmlString) {
-  const doc = new window.DOMParser().parseFromString(xmlString, "application/xml");
-  const parserError = doc.getElementsByTagName("parsererror")[0];
-  if (parserError) throw new Error("Falha ao ler XML.");
-
-  const items = Array.from(doc.getElementsByTagName("item"));
-  const getText = (parent, tag) =>
-    parent.getElementsByTagName(tag)[0]?.textContent?.trim() ?? "";
-
-  return items.map((item) => ({
-    id: getText(item, "id"),
-    clienteNome: getText(item, "clienteNome"),
-    clienteRazao: getText(item, "clienteRazao"),
-    clienteCnpjCpf: getText(item, "clienteCnpjCpf"),
-    clienteEmail: getText(item, "clienteEmail"),
-    clienteTelefone: getText(item, "clienteTelefone"),
-    clienteCelular: getText(item, "clienteCelular"),
-    clienteSituacao: getText(item, "clienteSituacao"),
-  }));
-}
 
 export default function ClienteList() {
   const [clientes, setClientes] = useState([]);
-  const [loading, setLoading] = useState(false);     // loading da lista
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [navigating, setNavigating] = useState(false); // loading ao navegar
+  const [navigating, setNavigating] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,13 +16,11 @@ export default function ClienteList() {
     try {
       setLoading(true);
       setError("");
-      const res = await api.get("/clientes", {
-        headers: { Accept: "application/xml" },
-        responseType: "text",
-        transformResponse: [(data) => data],
+      // Spring retorna JSON (ClienteResponseDTO[])
+      const { data } = await api.get("/clientes", {
+        headers: { Accept: "application/json" },
       });
-      const lista = parseClientesXml(res.data);
-      setClientes(lista);
+      setClientes(data);
     } catch (e) {
       console.error(e);
       setError("Não foi possível carregar clientes.");
@@ -59,7 +35,6 @@ export default function ClienteList() {
 
   function handleCadastrarClick() {
     setNavigating(true);
-    // pequeno delay para o usuário ver o feedback antes da troca de rota
     setTimeout(() => navigate("/clientes/cadastrar"), 800);
   }
 
@@ -68,7 +43,6 @@ export default function ClienteList() {
 
   return (
     <div className="cliente-list">
-      {/* Overlay de navegação (carregamento ao clicar em Cadastrar) */}
       {navigating && (
         <div className="overlay-loading" role="status" aria-live="polite">
           <div className="spinner" />
@@ -97,8 +71,12 @@ export default function ClienteList() {
         </thead>
         <tbody>
           {clientes.map((c) => (
-            <tr key={c.id}>
-              <td>{c.clienteNome}</td>
+            <tr key={c.clienteId}>
+              <td>
+                <Link className="linklike" to={`/clientes/${c.clienteId}/editar`}>
+                  {c.clienteNome}
+                </Link>
+              </td>
               <td>{c.clienteCnpjCpf}</td>
               <td>{c.clienteEmail}</td>
               <td>{c.clienteTelefone}</td>

@@ -13,6 +13,8 @@ import ForgotPassword from "./components/forgotPassword/forgotPassword";
 import ResetPassword from "./components/resetPassword/resetPassword"; // importe o componente
 import UserCreate from "./components/pages/userCreate/UserCreate";
 import ClienteCadastrar from "./components/clienteForm/clienteCadastrar";
+import ClienteEditar from "./components/clienteForm/clienteEditar";
+
 
 
 const AppLayout = () => {
@@ -36,6 +38,8 @@ const AppLayout = () => {
             <Route path="/users/new" element={<UserCreate />} />
             <Route path="/clientes" element={<Cliente/>} />
             <Route path="/clientes/cadastrar" element={<ClienteCadastrar />} />
+            <Route path="/clientes/:id/editar" element={<ClienteEditar/>} />
+
           </Route>
 
           {/* Catch-all */}

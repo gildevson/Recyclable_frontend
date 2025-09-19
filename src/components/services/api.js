@@ -1,3 +1,4 @@
+// src/services/api.js
 import axios from "axios";
 
 const api = axios.create({
@@ -5,10 +6,22 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// Request: injeta token
+// Request: injeta token (exceto em GETs públicos de /clientes)
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+
+  // Monta URL absoluta para extrair pathname com segurança
+  const full = new URL(config.url, config.baseURL);
+  const pathname = full.pathname;
+  const method = (config.method || "get").toLowerCase();
+
+  // Rotas públicas (ajuste conforme sua política)
+  const isPublicClientesGET =
+    method === "get" && (pathname === "/clientes" || pathname.startsWith("/clientes/"));
+
+  if (token && !isPublicClientesGET) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 
